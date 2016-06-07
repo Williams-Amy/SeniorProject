@@ -1,5 +1,16 @@
 if (annyang) {
-    // Let's define our first command. First the text we expect, and then the function it should call
+    // Commands only visisble when the menu is open
+    var menuCommands = {
+        'potato': function () {
+            alert("you couldn't do this before!");
+        },
+        'restart': function() {
+            alert("Restarting");
+            annyang.removeCommands(['potato', 'restart']);
+        }
+    }
+
+    // Initial Commands
     var commands = {
         'wake up': function () {
             test();
@@ -9,6 +20,7 @@ if (annyang) {
         },
         'two' : function () {
             alert("2");
+            document.getElementById("modalTrigger").click();
         },
         'three' : function () {
             alert("3");
@@ -18,6 +30,7 @@ if (annyang) {
         },
         'menu' : function () {
             alert("Menu appear");
+            annyang.addCommands(menuCommands);
         },
         'set a timer for *minminutes' : setTimer,
         'set a timer for *min and *sec seconds' : setTimer
@@ -35,4 +48,13 @@ else {
 
 function setTimer(minutes) {
     alert(minutes);
+}
+
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
 }

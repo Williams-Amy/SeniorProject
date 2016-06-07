@@ -1,0 +1,250 @@
+<!Doctype html>
+<head>
+	<title>Alarm Clock</title>
+	<!-- Annyang -->
+	<script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.4.0/annyang.min.js"></script>
+	<script type="text/javascript">
+
+	if (annyang) {
+
+    // Initial Commands
+    var commands = {
+    	'one' : function () {
+    		alert("1");
+    	},
+    	'two' : function () {
+    		alert("2");
+    		document.getElementById("modalTrigger").click();
+    	},
+    	'three' : function () {
+    		alert("3");
+    	},
+    	'stop alarm' : function() {
+    		alert("Stopping Alarm");
+			document.getElementById("resetbutton").click();
+    	},
+    	'set an alarm for *time' : setAlarm,
+    	'set a timer for *minminutes' : setTimer,
+    	'set a timer for *min and *sec seconds' : setTimer
+    };
+    
+    // Add our commands to annyang
+    annyang.addCommands(commands);
+
+    // Start listening. You can call this here, or attach this call to an event, button, etc.
+    annyang.start();
+}
+else {
+	alert("Error: Voice recognition service is currently unavailable");
+}
+
+function setAlarm(time) {
+	alert("Time: " + time.split(":"));
+
+	var timeArray = time.split(":");
+	//alert(timeArray[0]);
+	//alert(timeArray[1]);
+
+	// No minutes included (ex. '11 o'clock' or '11 pm')
+	if (timeArray[1] == null)
+	{
+		var hour = timeArray[0][0] + timeArray[0][1];
+
+		// Switch to military time
+		if (timeArray[0].includes("p.m.")) {
+			hour = parseInt(hour) + 12;
+		}
+
+		// Concatenate the "0" before it if it's in the single digits
+		if (hour < 10) {
+			hour = "0" + hour;
+		}
+
+		// Set values
+		document.getElementById("hour").value = hour;
+		document.getElementById("min").value = "00";
+		document.getElementById("sec").value = "00";
+
+		// Click to set the alarm
+		document.getElementById("submitbutton").click();
+	}
+	else 
+	{
+		var hour = parseInt(timeArray[0]);
+
+		// Switch to military time
+		if (timeArray[1].includes("p.m.")) {
+			hour = hour + 12;
+		}
+
+		// Concatenate the "0" before it if it's in the single digits
+		if (hour < 10) {
+			hour = "0" + hour;
+		}
+
+		// Set values
+		document.getElementById("hour").value = hour;
+		document.getElementById("min").value = timeArray[1][0] + timeArray[1][1];
+		document.getElementById("sec").value = "00";
+
+		// Click to set the alarm
+		document.getElementById("submitbutton").click();
+	}
+}
+
+function setTimer(minutes) {
+	alert(minutes);
+}
+
+</script>
+
+<style type="text/css">
+
+#jsalarmclock{
+	font-family: Tahoma;
+	font-weight: bold;
+	font-size: 12px;
+}
+
+#jsalarmclock div{
+	margin-bottom: 0.8em;
+}
+
+#jsalarmclock div.leftcolumn{
+	float: left;
+	width: 150px;
+	font-size: 13px;
+	background-color: lightyellow;
+	clear: left;
+}
+
+#jsalarmclock span{
+	margin-right: 5px;
+}
+
+</style>
+
+<script type="text/javascript">
+
+/***********************************************
+
+* JavaScript Alarm Clock- by JavaScript Kit (www.javascriptkit.com)
+* This notice must stay intact for usage
+* Visit JavaScript Kit at http://www.javascriptkit.com/ for this script and 100s more
+
+***********************************************/
+
+var jsalarm={
+	padfield:function(f){
+		return (f<10)? "0"+f : f
+	},
+	showcurrenttime:function(){
+		var dateobj=new Date()
+		var ct=this.padfield(dateobj.getHours())+":"+this.padfield(dateobj.getMinutes())+":"+this.padfield(dateobj.getSeconds())
+		this.ctref.innerHTML=ct
+		this.ctref.setAttribute("title", ct)
+		if (typeof this.hourwake!="undefined"){ 
+		//if alarm is set
+		if (this.ctref.title==(this.hourwake+":"+this.minutewake+":"+this.secondwake)){
+			clearInterval(jsalarm.timer)
+			alert("ALARM GOING OFFFFF");
+			window.location=document.getElementById("musicloc").value
+		}
+	}
+},
+init:function(){
+	var dateobj=new Date()
+	this.ctref=document.getElementById("jsalarm_ct")
+	this.submitref=document.getElementById("submitbutton")
+	this.submitref.onclick=function(){
+		jsalarm.setalarm()
+		this.value="Alarm Set"
+		this.disabled=true
+		return false
+	}
+	this.resetref=document.getElementById("resetbutton")
+	this.resetref.onclick=function(){
+		jsalarm.submitref.disabled=false
+		jsalarm.hourwake=undefined
+		jsalarm.hourselect.disabled=false
+		jsalarm.minuteselect.disabled=false
+		jsalarm.secondselect.disabled=false
+		return false
+	}
+	var selections=document.getElementsByTagName("select")
+	this.hourselect=selections[0]
+	this.minuteselect=selections[1]
+	this.secondselect=selections[2]
+	for (var i=0; i<60; i++){
+			if (i<24) //If still within range of hours field: 0-23
+				this.hourselect[i]=new Option(this.padfield(i), this.padfield(i), false, dateobj.getHours()==i)
+			this.minuteselect[i]=new Option(this.padfield(i), this.padfield(i), false, dateobj.getMinutes()==i)
+			this.secondselect[i]=new Option(this.padfield(i), this.padfield(i), false, dateobj.getSeconds()==i)
+
+		}
+		jsalarm.showcurrenttime()
+		jsalarm.timer=setInterval(function(){jsalarm.showcurrenttime()}, 1000)
+	},
+	setalarm:function(){
+		this.hourwake=this.hourselect.options[this.hourselect.selectedIndex].value
+		this.minutewake=this.minuteselect.options[this.minuteselect.selectedIndex].value
+		this.secondwake=this.secondselect.options[this.secondselect.selectedIndex].value
+		this.hourselect.disabled=true
+		this.minuteselect.disabled=true
+		this.secondselect.disabled=true
+	}
+}
+
+</script>
+</head>
+<body>
+	<form action="" method="">
+		<div id="jsalarmclock">
+			<div>
+				<div class="leftcolumn">Current Time:</div> 
+				<span id="jsalarm_ct" style="letter-spacing: 2px"></span>
+			</div>
+			<div>
+				<div class="leftcolumn">Set Alarm:</div> 
+				<span>
+					<select id="hour"></select> Hour
+				</span> 
+				<span>
+					<select id="min"></select> Minutes
+				</span> 
+				<span>
+					<select id="sec"></select> Seconds
+				</span>
+			</div>
+			<div>
+				<div class="leftcolumn">Set Alarm Action:
+				</div> 
+				<input type="text" id="musicloc" size="55" value="http://www.youtube.com/watch?v=v1zY_tV5kaQ" /> 
+				<span style="font: normal 11px Tahoma">*Location of page to launch</span>
+			</div>
+			<input type="submit" value="Set Alarm!" id="submitbutton" /> 
+			<input type="reset" value="reset" id="resetbutton" />
+		</div>
+	</form>
+
+
+	<script type="text/javascript">
+
+	jsalarm.init()
+
+	</script>
+
+	<!-- My Test for setting an alarm -->
+	<script type="text/javascript">
+
+	// document.getElementById("hour").value = "13";
+	// document.getElementById("min").value = "57";
+	// document.getElementById("sec").value = "00";
+
+	//document.getElementById("submitbutton").click();
+	//document.getElementById("resetbutton").click();
+
+	</script>
+
+</body>
+</html>

@@ -1,9 +1,4 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 <html>
 <head>
     <title>Senior Project Test</title>
@@ -30,8 +25,11 @@ and open the template in the editor.
     <script type="text/javascript" src="js/testfunc.js"></script>
     <!-- <script type="text/javascript" src="js/clock.js"></script> -->
     
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+
     <style>
     body {
+        font-family: 'Raleway';
         background-color: #555;
         color: white;
     }
@@ -67,27 +65,59 @@ and open the template in the editor.
 <body onload="startTime()">
     <!-- Left hand items -->
     <div class="col-sm-6">
+        <!-- Clock -->
         <div>
             <span id="time" style="font-size: 100px"></span>
             <span id="ampm" style="font-size: 20px"></span>
         </div>
-        <!-- start feedwind code -->
-        <script type="text/javascript">
-        document.write('\x3Cscript type="text/javascript" src="' + ('https:' == document.location.protocol ? 'https://' : 'http://') + 'feed.mikle.com/js/rssmikle.js">\x3C/script>');</script><script type="text/javascript">(function() {var params = {rssmikle_url: "http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",rssmikle_frame_width: "350",rssmikle_frame_height: "400",frame_height_by_article: "0",rssmikle_target: "_blank",rssmikle_font: "Arial, Helvetica, sans-serif",rssmikle_font_size: "12",rssmikle_border: "off",responsive: "off",rssmikle_css_url: "",text_align: "left",text_align2: "justify",corner: "off",scrollbar: "off",autoscroll: "on_mc",scrolldirection: "up",scrollstep: "3",mcspeed: "70",sort: "Off",rssmikle_title: "off",rssmikle_title_sentence: "",rssmikle_title_link: "",rssmikle_title_bgcolor: "#0066FF",rssmikle_title_color: "#FFFFFF",rssmikle_title_bgimage: "",rssmikle_item_bgcolor: "#000000",rssmikle_item_bgimage: "",rssmikle_item_title_length: "55",rssmikle_item_title_color: "#FFFFFF",rssmikle_item_border_bottom: "on",rssmikle_item_description: "on",item_link: "off",rssmikle_item_description_length: "150",rssmikle_item_description_color: "#FFFFFF",rssmikle_item_date: "off",rssmikle_timezone: "Etc/GMT",datetime_format: "%b %e, %Y %l:%M %p",item_description_style: "text",item_thumbnail: "full",item_thumbnail_selection: "auto",article_num: "15",rssmikle_item_podcast: "off",keyword_inc: "",keyword_exc: ""};feedwind_show_widget_iframe(params);})();
-        </script>
-        <div style="font-size:10px; text-align:center; width:350px;">
-            <a href="http://feed.mikle.com/" target="_blank" style="color:#CCCCCC;">RSS Feed Widget</a>
-        </div>
-    </div>
+        <!-- Modal Code -->
+        <div class="container">
+          <!-- Trigger the modal with a button -->
+          <button type="button" class="btn btn-info btn-lg" id="modalTrigger" data-toggle="modal" data-target="#Modal">Open Modal</button>
 
-    <!-- Right hand items -->
-    <div class="col-sm-6" style="text-align: right">
-        <iframe frameborder="0" scrolling="no" width="400" height="250" src="weather.html"></iframe>
+          <!-- Modal -->
+          <div class="modal fade" id="Modal" role="dialog">
+            <div class="modal-dialog">
 
-        <!-- start feedwind code --><iframe  height="400"  width="350" src="http://feed.mikle.com/widget/?rssmikle_url=http%3A%2F%2Frss.nytimes.com%2Fservices%2Fxml%2Frss%2Fnyt%2FHomePage.xml&rssmikle_frame_width=350&rssmikle_frame_height=400&frame_height_by_article=0&rssmikle_target=_blank&rssmikle_font=Arial%2C%20Helvetica%2C%20sans-serif&rssmikle_font_size=12&rssmikle_border=off&responsive=off&text_align=left&text_align2=justify&corner=off&scrollbar=off&autoscroll=on_mc&scrolldirection=up&scrollstep=3&mcspeed=70&sort=Off&rssmikle_title=off&rssmikle_title_bgcolor=%230066FF&rssmikle_title_color=%23FFFFFF&rssmikle_item_bgcolor=%23000000&rssmikle_item_title_length=55&rssmikle_item_title_color=%23FFFFFF&rssmikle_item_border_bottom=off&rssmikle_item_description=on&item_link=off&rssmikle_item_description_length=150&rssmikle_item_description_color=%23FFFFFF&rssmikle_item_date=off&rssmikle_timezone=Etc%2FGMT&datetime_format=%25b%20%25e%2C%20%25Y%20%25l%3A%25M%20%25p&item_description_style=text&item_thumbnail=full&item_thumbnail_selection=auto&article_num=15&rssmikle_item_podcast=off&" scrolling="no" name="rssmikle_frame" marginwidth="0" marginheight="0" vspace="0" hspace="0" frameborder="0"></iframe><div style="font-size:10px; text-align:center; width:350px;"><a href="http://feed.mikle.com/" target="_blank" style="color:#CCCCCC;">RSS Feed Widget</a><!--Please display the above link in your web page according to Terms of Service.--></div><!--  end  feedwind code -->
-    </div>
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Modal Header</h4>
+              </div>
+              <div class="modal-body">
+                  <p>Some text in the modal.</p>
+              </div>
+              <div class="modal-footer">
+                  <button id="modalDismiss" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+          </div>
+      </div>
+
+  </div>
+  <br/>
+  <!-- start feedwind code -->
+  <script type="text/javascript">
+  document.write('\x3Cscript type="text/javascript" src="' + ('https:' == document.location.protocol ? 'https://' : 'http://') + 'feed.mikle.com/js/rssmikle.js">\x3C/script>');</script><script type="text/javascript">(function() {var params = {rssmikle_url: "http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",rssmikle_frame_width: "350",rssmikle_frame_height: "400",frame_height_by_article: "0",rssmikle_target: "_blank",rssmikle_font: "Verdana, Arial, Helvetica, sans-serif",rssmikle_font_size: "12",rssmikle_border: "off",responsive: "off",rssmikle_css_url: "",text_align: "left",text_align2: "justify",corner: "off",scrollbar: "off",autoscroll: "on_mc",scrolldirection: "up",scrollstep: "3",mcspeed: "70",sort: "Off",rssmikle_title: "off",rssmikle_title_sentence: "",rssmikle_title_link: "",rssmikle_title_bgcolor: "#0066FF",rssmikle_title_color: "#FFFFFF",rssmikle_title_bgimage: "",rssmikle_item_bgcolor: "#000000",rssmikle_item_bgimage: "",rssmikle_item_title_length: "55",rssmikle_item_title_color: "#FFFFFF",rssmikle_item_border_bottom: "on",rssmikle_item_description: "on",item_link: "off",rssmikle_item_description_length: "150",rssmikle_item_description_color: "#FFFFFF",rssmikle_item_date: "off",rssmikle_timezone: "Etc/GMT",datetime_format: "%b %e, %Y %l:%M %p",item_description_style: "text",item_thumbnail: "full",item_thumbnail_selection: "auto",article_num: "15",rssmikle_item_podcast: "off",keyword_inc: "",keyword_exc: ""};feedwind_show_widget_iframe(params);})();
+  </script>
+  <div style="font-size:10px; text-align:center; width:350px;">
+    <a href="http://feed.mikle.com/" target="_blank" style="color:#CCCCCC;">RSS Feed Widget</a>
+</div>
+</div>
+
+<!-- Right hand items -->
+<div class="col-sm-6" style="text-align: right">
+    <iframe frameborder="0" scrolling="no" width="400" height="250" src="weather.html"></iframe>
+
+    <!-- start feedwind code --><iframe  height="400"  width="350" src="http://feed.mikle.com/widget/?rssmikle_url=http%3A%2F%2Frss.nytimes.com%2Fservices%2Fxml%2Frss%2Fnyt%2FHomePage.xml&rssmikle_frame_width=350&rssmikle_frame_height=400&frame_height_by_article=0&rssmikle_target=_blank&rssmikle_font=Arial%2C%20Helvetica%2C%20sans-serif&rssmikle_font_size=12&rssmikle_border=off&responsive=off&text_align=left&text_align2=justify&corner=off&scrollbar=off&autoscroll=on_mc&scrolldirection=up&scrollstep=3&mcspeed=70&sort=Off&rssmikle_title=off&rssmikle_title_bgcolor=%230066FF&rssmikle_title_color=%23FFFFFF&rssmikle_item_bgcolor=%23000000&rssmikle_item_title_length=55&rssmikle_item_title_color=%23FFFFFF&rssmikle_item_border_bottom=off&rssmikle_item_description=on&item_link=off&rssmikle_item_description_length=150&rssmikle_item_description_color=%23FFFFFF&rssmikle_item_date=off&rssmikle_timezone=Etc%2FGMT&datetime_format=%25b%20%25e%2C%20%25Y%20%25l%3A%25M%20%25p&item_description_style=text&item_thumbnail=full&item_thumbnail_selection=auto&article_num=15&rssmikle_item_podcast=off&" scrolling="no" name="rssmikle_frame" marginwidth="0" marginheight="0" vspace="0" hspace="0" frameborder="0"></iframe><div style="font-size:10px; text-align:center; width:350px;"><a href="http://feed.mikle.com/" target="_blank" style="color:#CCCCCC;">RSS Feed Widget</a><!--Please display the above link in your web page according to Terms of Service.--></div><!--  end  feedwind code -->
+</div>
     <!-- <canvas id="canvas" width="400" height="400"
         style="background-color:black">
     </canvas> -->
-    <input onclick='responsiveVoice.speak("Hello World");' type='button' value='🔊 Play' /></body>
-    </html>
+    <input onclick='responsiveVoice.speak("It is 11:15 AM, and 80 degrees outside");' type='button' value='🔊 Play' />
+
+
+
+
+</body>
+</html>

@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.simpleWeather/3.1.0/jquery.simpleWeather.min.js"></script>
+
+    <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+
     <style>
     @font-face {
         font-family: 'weather';
@@ -18,16 +21,17 @@
         font-style: normal;
     }
 
-  body {
-    background-color: black;
-      font: 13px 'Open Sans', "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-  }
+    body {
+        background-color: black;
+        font: 13px 'Open Sans', "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+        font-family: 'Raleway';
+    }
 
-  #weather {
+    #weather {
       width: 500px;
       margin: 0px auto;
       text-align: left;
-      text-transform: uppercase;
+      //text-transform: uppercase;
   }
 
   i {
@@ -123,7 +127,7 @@
           html = '<h2><i class="icon-'+weather.code+'"></i> '+weather.temp+'&deg;'+weather.units.temp+'</h2>';
           html += '<ul><li>'+weather.city+', '+weather.region+'</li>';
           html += '<li class="currently">'+weather.currently+'</li>';
-          html += '<li><img src="img/wind.png" alt="wind" height="15px" width="15px"/> '+weather.wind.direction+' '+weather.wind.speed+' '+weather.units.speed+'</li></ul>';
+          html += '<li><img src="img/wind.png" alt="wind" height="15px" width="15px"/> '+ weather.wind.direction+' '+weather.wind.speed+' '+weather.units.speed+'</li></ul>';
 
           $("#weather").html(html);
       },
@@ -136,5 +140,6 @@
 </head>
 </head>
     <body>
-    <div id="weather"></div>
+      <div id="weather"></div>
+    </body>
 </html>
