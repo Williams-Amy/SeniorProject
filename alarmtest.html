@@ -73,7 +73,7 @@ function setAlarm(time) {
 		var hour = parseInt(timeArray[0]);
 
 		// Switch to military time
-		if (timeArray[1].includes("p.m.")) {
+		if (timeArray[1].includes("p.m.") && (parseInt(timeArray[0]) != 12)) {
 			hour = hour + 12;
 		}
 
@@ -148,6 +148,7 @@ var jsalarm={
 		if (this.ctref.title==(this.hourwake+":"+this.minutewake+":"+this.secondwake)){
 			clearInterval(jsalarm.timer)
 			alert("ALARM GOING OFFFFF");
+			document.getElementById("embed").innerHTML="<embed src='alarm.mp3' autostart=true loop=false volume=100 hidden=true>";
 			window.location=document.getElementById("musicloc").value
 		}
 	}

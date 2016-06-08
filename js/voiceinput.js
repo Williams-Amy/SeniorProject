@@ -20,7 +20,6 @@ if (annyang) {
         },
         'two' : function () {
             alert("2");
-            document.getElementById("modalTrigger").click();
         },
         'three' : function () {
             alert("3");
@@ -29,8 +28,15 @@ if (annyang) {
             alert("Menu appear");
         },
         'menu' : function () {
-            alert("Menu appear");
+            document.getElementById("modalTrigger").click();
             annyang.addCommands(menuCommands);
+        },
+        'close (menu)' : function() {
+            document.getElementById("modalDismiss").click();
+        },
+        'random': function() {
+            alert("random");
+            frames[iframe1].document.getElementById("microsoftnews").innerHTML = "lskdfj;laskdjf";
         },
         'set a timer for *minminutes' : setTimer,
         'set a timer for *min and *sec seconds' : setTimer
