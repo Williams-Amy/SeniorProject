@@ -17,6 +17,8 @@
   <!-- Annyang -->
   <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.4.0/annyang.min.js"></script>
 
+
+
   <!-- Text-to-Speech -->
   <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
 
@@ -25,11 +27,17 @@
   <script type="text/javascript" src="js/testfunc.js"></script>
   <!-- <script type="text/javascript" src="js/clock.js"></script> -->
 
+  <!-- Fonts -->
   <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
 
   <style>
   body {
     font-family: 'Raleway';
+    font-family: "Open Sans Condensed";
+    font-family: "Dosis";
     background-color: #555;
     color: white;
   }
@@ -108,6 +116,8 @@ filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='4');
         <span id="time" style="font-size: 100px"></span>
         <span id="ampm" style="font-size: 20px"></span>
       </div>
+      <!-- Google Calendar -->
+      <iframe frameborder="0" scrolling="no" width="400" height="250" src="quickstart.html"></iframe>
       <!-- Modal Trigger Button -->
       <button type="button" class="btn btn-info btn-lg" id="modalTrigger" data-toggle="modal" data-target="#Modal" style="display:none">Open Modal</button>
       <br/>
@@ -119,7 +129,7 @@ filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='4');
 
       <!-- start feedwind code -->
       <script type="text/javascript">
-      document.write('\x3Cscript type="text/javascript" src="' + ('https:' == document.location.protocol ? 'https://' : 'http://') + 'feed.mikle.com/js/rssmikle.js">\x3C/script>');</script><script type="text/javascript">(function() {var params = {rssmikle_url: "http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",rssmikle_frame_width: "350",rssmikle_frame_height: "400",frame_height_by_article: "0",rssmikle_target: "_blank",rssmikle_font: "Verdana, Arial, Helvetica, sans-serif",rssmikle_font_size: "12",rssmikle_border: "off",responsive: "off",rssmikle_css_url: "",text_align: "left",text_align2: "justify",corner: "off",scrollbar: "off",autoscroll: "on_mc",scrolldirection: "up",scrollstep: "3",mcspeed: "70",sort: "Off",rssmikle_title: "off",rssmikle_title_sentence: "",rssmikle_title_link: "",rssmikle_title_bgcolor: "#0066FF",rssmikle_title_color: "#FFFFFF",rssmikle_title_bgimage: "",rssmikle_item_bgcolor: "#000000",rssmikle_item_bgimage: "",rssmikle_item_title_length: "55",rssmikle_item_title_color: "#FFFFFF",rssmikle_item_border_bottom: "on",rssmikle_item_description: "on",item_link: "off",rssmikle_item_description_length: "150",rssmikle_item_description_color: "#FFFFFF",rssmikle_item_date: "off",rssmikle_timezone: "Etc/GMT",datetime_format: "%b %e, %Y %l:%M %p",item_description_style: "text",item_thumbnail: "full",item_thumbnail_selection: "auto",article_num: "15",rssmikle_item_podcast: "off",keyword_inc: "",keyword_exc: ""};feedwind_show_widget_iframe(params);})();
+      document.write('\x3Cscript type="text/javascript" src="' + ('https:' == document.location.protocol ? 'https://' : 'http://') + 'feed.mikle.com/js/rssmikle.js">\x3C/script>');</script><script type="text/javascript">(function() {var params = {rssmikle_url: "http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",rssmikle_frame_width: "350",rssmikle_frame_height: "400",frame_height_by_article: "0",rssmikle_target: "_blank",rssmikle_font: "Verdana, Arial, Helvetica, sans-serif",rssmikle_font_size: "12",rssmikle_border: "off",responsive: "off",rssmikle_css_url: "",text_align: "left",text_align2: "justify",corner: "off",scrollbar: "off",autoscroll: "on_mc",scrolldirection: "up",scrollstep: "3",mcspeed: "70",sort: "Off",rssmikle_title: "off",rssmikle_title_sentence: "",rssmikle_title_link: "",rssmikle_title_bgcolor: "#0066FF",rssmikle_title_color: "#FFFFFF",rssmikle_title_bgimage: "",rssmikle_item_bgcolor: "#000000",rssmikle_item_bgimage: "",rssmikle_item_title_length: "55",rssmikle_item_title_color: "#FFFFFF",rssmikle_item_border_bottom: "off",rssmikle_item_description: "on",item_link: "off",rssmikle_item_description_length: "150",rssmikle_item_description_color: "#FFFFFF",rssmikle_item_date: "off",rssmikle_timezone: "Etc/GMT",datetime_format: "%b %e, %Y %l:%M %p",item_description_style: "text",item_thumbnail: "full",item_thumbnail_selection: "auto",article_num: "15",rssmikle_item_podcast: "off",keyword_inc: "",keyword_exc: ""};feedwind_show_widget_iframe(params);})();
       </script>
       <div style="font-size:10px; text-align:center; width:350px;">
         <a href="http://feed.mikle.com/" target="_blank" style="color:#CCCCCC;">RSS Feed Widget</a>
@@ -128,7 +138,7 @@ filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='4');
     <!-- <canvas id="canvas" width="400" height="400"
         style="background-color:black">
       </canvas> -->
-      <input onclick='responsiveVoice.speak("It is 11:15 AM, and 80 degrees outside");' type='button' value='🔊 Play' />
+      <input onclick='responsiveVoice.speak("Ok, I have set an alarm for you");' type='button' value='🔊 Play' />
 
       <iframe name="iframe1" id="iframe1" frameborder="0" scrolling="no" width="400" height="250" src="microsoftnews.html"></iframe>
     </div>

@@ -147,9 +147,16 @@ var jsalarm={
 		//if alarm is set
 		if (this.ctref.title==(this.hourwake+":"+this.minutewake+":"+this.secondwake)){
 			clearInterval(jsalarm.timer)
-			alert("ALARM GOING OFFFFF");
-			document.getElementById("embed").innerHTML="<embed src='alarm.mp3' autostart=true loop=false volume=100 hidden=true>";
-			window.location=document.getElementById("musicloc").value
+
+			// Make the alarm go off
+			var sound = document.getElementById("alarm");
+			sound.currentTime = 6;
+			sound.play();
+
+			// Re-initialize the clock and alarm
+			jsalarm.init();
+			document.getElementById("resetbutton").click();
+			//window.location=document.getElementById("musicloc").value
 		}
 	}
 },
@@ -227,7 +234,10 @@ init:function(){
 			<input type="reset" value="reset" id="resetbutton" />
 		</div>
 	</form>
-
+	<audio id="alarm" controls>
+		<source src="img/alarm.mp3" type="audio/mpeg">
+			Your browser does not support audio
+	</audio>
 
 	<script type="text/javascript">
 
