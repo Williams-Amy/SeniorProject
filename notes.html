@@ -1,11 +1,38 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link  href="http://fonts.googleapis.com/css?
+family=Raleway:regular" 
+rel="stylesheet"
+type="text/css">
     <style>
+    #notes {
+        display: inline;
+    }
+    .note {
+        padding: 3em;
+        background: #ffc;
+        display: block;
+        height: 15em;
+        width: 10em;
+        padding: .5em;
+        margin: 1em;
+    }
     .noteTitle {
         color: blue;
+        font-family: 'Raleway';
+        
+    }
+    .noteText {
+        font-family: 'Raleway';
+        float: left;
+        font-size: 20px;
     }
     </style>
+  <!-- Annyang -->
+  <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.4.0/annyang.min.js"></script>
+
+
 
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
@@ -41,19 +68,17 @@ noteApp.database().ref().on("child_added", function(snapshot) {
 });
 
 noteApp.database().ref().on("child_removed", function(snapshot) {
-    alert("Something removed");
+    // alert("Something removed");
     // createNote(snapshot);
 });
 
 noteApp.database().ref().on("child_changed", function(snapshot) {
-    alert("something changed");
+    // alert("something changed");
     // createNote(snapshot);
 });
 
 
 function createNote(snapshot) {
-
-    // document.body.innerHTML = "";
 
     // Create a div: id = key
     var div = document.createElement("DIV");
@@ -70,7 +95,7 @@ function createNote(snapshot) {
 
 
     // Add the title and text
-    var titleTextNode = document.createTextNode(snapshot.key);
+    var titleTextNode = document.createTextNode("Note " + snapshot.key);
     var textNode = document.createTextNode(snapshot.val().toString().substring(1));
 
     // Append nodes to respective elements
@@ -81,13 +106,8 @@ function createNote(snapshot) {
     div.appendChild(titleElement);
     div.appendChild(textElement);
 
-    document.body.appendChild(div);
+    document.getElementById("notes").appendChild(div);
 }
-
-// // This gets the values
-// noteApp.database().ref('3').on('value', function(snapshot) {
-//   alert(snapshot.val());
-// });
 
 var noteNums = [];
 
@@ -96,25 +116,17 @@ function updateArray() {
 
     $("div.note").each(function() {
         noteNums.push(this.id);
-      // var this_id = this.id;
-      // alert(this_id);
   });
-
-
-    // var length = mylist.length;
-    // alert("List Length: " + mylist.length);
-    //     for (var i = 0; i < length; i++)
-    //     {
-    //         alert("What's in the list: " + mylist[i].key + " " + mylist[i].val());
-    //     }
 }
 
 function addNote(text) {
     updateArray();
-    alert("Array Length: " + noteNums.length);
+
+    //alert("Array Length: " + noteNums.length);
     var newID = parseInt(++noteNums.length);
 
-    noteApp.database().ref(newID + "/1").set("Test " + newID);    
+    // noteApp.database().ref(newID + "/1").set("Test " + newID);    
+    noteApp.database().ref(newID + "/1").set(text);    
 }
 
 function deleteNote(num) {
@@ -122,7 +134,7 @@ function deleteNote(num) {
 
     // If it's the last element
     if (num == noteNums.length) {
-        alert("Only one item needed changing");
+        // alert("Only one item needed changing");
 
         // Remove from database
         noteApp.database().ref(num + "/1").remove();
@@ -146,17 +158,15 @@ function deleteNote(num) {
             if (noteNums[i] > num) {
                 // Store the original number for later
                 var origNum = noteNums[i];
-                alert("This element needs to be shifted: " + origNum);
+                //alert("This element needs to be shifted: " + origNum);
 
                 // Change the number in the array
                 noteNums[i] = origNum - 1;
 
-                alert("This is the element for shifting: " + origNum);
-
                 var eleText = document.getElementById("noteText" + origNum).innerHTML;
-                alert(eleText);
+                //alert(eleText);
 
-                alert("Removing: " + origNum);
+                //alert("Removing: " + origNum);
 
                 // Remove from database
                 noteApp.database().ref(origNum + "/1").remove();
@@ -182,8 +192,47 @@ function deleteNote(num) {
 
 </head>
 <body>
+    <div id="notes">
+    </div>
+
+
     <button onclick="updateArray()">Update array</button>
     <button onclick="addNote('This is the created note')">Add</button>
     <button onclick="deleteNote(4)">Delete</button>
 </body>
+<script>
+if (annyang) {
+
+    // Initial Commands
+    var commands = {
+        'one' : function () {
+            responsiveVoice.speak("1");
+        },
+        'two' : function () {
+            responsiveVoice.speak("2");
+        },
+        'three' : function () {
+            responsiveVoice.speak("3");
+        },
+        'create a note saying *text' : function(text) {
+            alert("OK");
+            text = text.toUpperCase();
+            addNote(text);
+        },
+        'delete note *number' : function(number) {
+            //alert(number);
+            deleteNote(number);
+        }
+    };
+    
+    // Add our commands to annyang
+    annyang.addCommands(commands);
+
+    // Start listening. You can call this here, or attach this call to an event, button, etc.
+    annyang.start();
+}
+else {
+    alert("Error: Voice recognition service is currently unavailable");
+}
+</script>
 </html>
