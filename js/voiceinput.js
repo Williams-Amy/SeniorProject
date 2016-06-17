@@ -1,12 +1,12 @@
 if (annyang) {
     // Commands only visisble when the menu is open
     var menuCommands = {
-        'potato': function () {
+        'test': function () {
             alert("you couldn't do this before!");
         },
         'restart': function() {
             alert("Restarting");
-            annyang.removeCommands(['potato', 'restart']);
+            annyang.removeCommands(['test', 'restart']);
         }
     }
 
@@ -37,6 +37,8 @@ if (annyang) {
             responsiveVoice.speak("OK");
         },
         'set an alarm for *time' : setAlarm,
+        'create an alarm for *time' : setAlarm,
+        'make an alarm for *time' : setAlarm,
         'stop alarm' : function() {
             //alert("Stopping Alarm");
             document.getElementById("resetbutton").click();
