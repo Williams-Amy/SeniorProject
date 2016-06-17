@@ -25,7 +25,8 @@
   <!-- JS Files -->
   <script type="text/javascript" src="js/voiceinput.js"></script>
   <script type="text/javascript" src="js/testfunc.js"></script>
-  <!-- <script type="text/javascript" src="js/clock.js"></script> -->
+  <script type="text/javascript" src="js/alarm.js"></script>
+ <script type="text/javascript" src="js/clock.js"></script> 
 
   <!-- Fonts -->
   <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
@@ -47,64 +48,45 @@
     background-color: #555;
     color: white;
   }
-body.modal-open .visibleItems{
+  body.modal-open .visibleItems{
     -webkit-filter: blur(4px);
     -moz-filter: blur(4px);
     -o-filter: blur(4px);
     -ms-filter: blur(4px);
     filter: blur(4px);
-filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='4');
+    filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='4');
+  }
+
+  #jsalarmclock{
+  font-family: Tahoma;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+#jsalarmclock div{
+  margin-bottom: 0.8em;
+}
+
+#jsalarmclock div.leftcolumn{
+  float: left;
+  width: 150px;
+  font-size: 13px;
+  background-color: lightyellow;
+  clear: left;
+}
+
+#jsalarmclock span{
+  margin-right: 5px;
 }
   </style>
 
   <script>
-  function startTime() {
-    var today = new Date();
-    var digitalH = today.getHours();
-    var digitalM = today.getMinutes();
-    var digitalS = today.getSeconds();
-
-    digitalM = checkTime(digitalM);
-    digitalS = checkTime(digitalS);
-
-        // AM or PM?
-        var amOrPm = digitalH/12;
-        if (amOrPm == 1) {
-          amOrPm = "AM"
-        } else {
-          amOrPm = "PM"
-        }
-
-        // Try to fix bug with 12%12=0
-        //before value below was digitalH%12
-
-        // Set values
-        document.getElementById('time').innerHTML =
-        calculateActualHours(digitalH) + ":" + digitalM;
-        document.getElementById('ampm').innerHTML =
-        ":" + digitalS + " " + amOrPm;
-        var t = setTimeout(startTime, 500);
-      }
-
-      function calculateActualHours(digitalH)
-      {
-        if (digitalH == 12 || digitalH == 24)
-        {
-          return 12;
-        }
-        else 
-        {
-          return digitalH%12;
-        }
-      }
-
-    // add zero in front of numbers < 10
-    function checkTime(i) 
-    {
-      if (i < 10) {i = "0" + i};  
-      return i;
-    }
+  
     </script>
+
+
+
+
   </head>
 </head>
 <body onload="startTime()">
@@ -118,6 +100,11 @@ filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='4');
       </div>
       <!-- Google Calendar -->
       <iframe frameborder="0" scrolling="no" width="400" height="250" src="quickstart.html"></iframe>
+      <!-- Alarm display -->
+      <div>
+        <h3>Alarms:</h3>
+        <p id="alarmDisplay">No alarms set<p>
+      </div>
       <!-- Modal Trigger Button -->
       <button type="button" class="btn btn-info btn-lg" id="modalTrigger" data-toggle="modal" data-target="#Modal" style="display:none">Open Modal</button>
       <br/>
@@ -167,6 +154,46 @@ filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='4');
       </div>
     </div>
   </div>
+  <!-- Alarm Clock -->
+  <div style="color:black;display: none">
+    <form action="" method="">
+      <div id="jsalarmclock">
+        <div>
+          <div class="leftcolumn">Current Time:</div> 
+          <span id="jsalarm_ct" style="letter-spacing: 2px"></span>
+        </div>
+        <div>
+          <div class="leftcolumn">Set Alarm:</div> 
+          <span>
+            <select id="hour"></select> Hour
+          </span> 
+          <span>
+            <select id="min"></select> Minutes
+          </span> 
+          <span>
+            <select id="sec"></select> Seconds
+          </span>
+        </div>
+        <div>
+          <!-- <div class="leftcolumn">Set Alarm Action:
+          </div> 
+          <input type="text" id="musicloc" size="55" value="http://www.youtube.com/watch?v=v1zY_tV5kaQ" /> 
+          <span style="font: normal 11px Tahoma">*Location of page to launch</span>
+        </div> -->
+        <input type="button" value="Set Alarm!" id="submitbutton" /> 
+        <input type="reset" value="reset" id="resetbutton" />
+      </div>
+    </form>
+    <audio id="alarm" controls>
+      <source src="img/alarm.mp3" type="audio/mpeg">
+        Your browser does not support audio
+      </audio>
 
-</body>
-</html>
+      <script type="text/javascript">
+
+      jsalarm.init()
+
+      </script>
+    </div>
+  </body>
+  </html>

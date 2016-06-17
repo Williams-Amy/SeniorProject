@@ -16,27 +16,41 @@ if (annyang) {
             test();
         },
         'one' : function () {
-            alert("1");
+            responsiveVoice.speak("1");
         },
         'two' : function () {
-            alert("2");
+            responsiveVoice.speak("2");
         },
         'three' : function () {
-            alert("3");
+            responsiveVoice.speak("3");
         },
         'display commands' : function () {
-            alert("Menu appear");
+            responsiveVoice.speak("Menu appear");
         },
         'menu' : function () {
             document.getElementById("modalTrigger").click();
+            responsiveVoice.speak("Alright");
             annyang.addCommands(menuCommands);
         },
         'close (menu)' : function() {
             document.getElementById("modalDismiss").click();
+            responsiveVoice.speak("OK");
         },
-        'random': function() {
-            alert("random");
-            frames[iframe1].document.getElementById("microsoftnews").innerHTML = "lskdfj;laskdjf";
+        'set an alarm for *time' : setAlarm,
+        'stop alarm' : function() {
+            //alert("Stopping Alarm");
+            document.getElementById("resetbutton").click();
+            displayAlarm("No alarms set");
+
+            if (alarmIsSet) 
+            {
+                alarmIsSet = false;
+                responsiveVoice.speak("Alright, I have cancelled your alarm");
+            }
+            else
+            {
+                responsiveVoice.speak("You did not have an alarm set");
+            }
         },
         'set a timer for *minminutes' : setTimer,
         'set a timer for *min and *sec seconds' : setTimer
@@ -61,6 +75,95 @@ function sleep(milliseconds) {
   for (var i = 0; i < 1e7; i++) {
     if ((new Date().getTime() - start) > milliseconds){
       break;
-    }
   }
+}
+}
+
+var alarmIsSet = false;
+
+/****************************************************
+* Functionality for setting the alarm by parsing the 
+* voice command given.
+*****************************************************/
+function setAlarm(time) {
+    //alert("Time: " + time.split(":"));
+
+    // TODO: Simplify this
+    if (time.includes('.'))
+    {
+        var timeWithoutAmPm = time.replace('.', '');
+        timeWithoutAmPm = timeWithoutAmPm.replace('.', '');
+    }
+
+    // Tell the user that the alarm has been set
+    responsiveVoice.speak("Ok, I have set an alarm for " + timeWithoutAmPm + " for you");
+
+    var timeArray = time.split(":");
+    //alert(timeArray[0]);
+    //alert(timeArray[1]);
+
+    // No minutes included (ex. '11 o'clock' or '11 pm')
+    if (timeArray[1] == null)
+    {
+        var hour = timeArray[0][0] + timeArray[0][1];
+
+        // Switch to military time
+        if (timeArray[0].includes("p.m.")) {
+            hour = parseInt(hour) + 12;
+        }
+
+        // Concatenate the "0" before it if it's in the single digits
+        if (hour < 10) {
+            hour = "0" + hour;
+        }
+
+        // Set values
+        document.getElementById("hour").value = hour;
+        document.getElementById("min").value = "00";
+        document.getElementById("sec").value = "00";
+
+        // Click to set the alarm
+        document.getElementById("submitbutton").click();
+    }
+    else 
+    {
+        var hour = parseInt(timeArray[0]);
+
+        // Switch to military time
+        if (timeArray[1].includes("p.m.") && (parseInt(timeArray[0]) != 12)) {
+            hour = hour + 12;
+        }
+
+        // Concatenate the "0" before it if it's in the single digits
+        if (hour < 10) {
+            hour = "0" + hour;
+        }
+
+        // Set values
+        document.getElementById("hour").value = hour;
+        document.getElementById("min").value = timeArray[1][0] + timeArray[1][1];
+        document.getElementById("sec").value = "00";
+
+        // Click to set the alarm
+        document.getElementById("submitbutton").click();
+    }
+
+    // Indicate that the alarm has been set
+    alarmIsSet = true;
+    displayAlarm(time);
+}
+
+function displayAlarm(time) 
+{
+    var alarmDisp = document.getElementById("alarmDisplay");
+
+    if (alarmIsSet) 
+    {
+        alarmDisp.style.display = "visible";
+        alarmDisp.innerHTML = time;
+    }
+    else
+    {
+        alarmDisp.style.display = "none";
+    }
 }

@@ -1,0 +1,13 @@
+[debug] ----------------------------------------------------------------------
+[debug] Command:      c:\Program Files\nodejs\node.exe c:\Users\Amy\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase serve
+[debug] CLI Version:  3.0.2
+[debug] Platform:     win32
+[debug] Node Version: v4.4.5
+[debug] Time:         Thu Jun 16 2016 15:43:41 GMT-0700 (US Mountain Standard Time)
+[debug] ----------------------------------------------------------------------
+[debug] 
+[info] Starting Firebase development server...
+[info] 
+[warn] !  No Firebase project directory detected. Serving static content from c:\wamp\www\sp\test
+[info] 
+[info] Server listening at: http://localhost:5000
