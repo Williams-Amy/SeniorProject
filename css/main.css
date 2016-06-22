@@ -1,0 +1,51 @@
+body {
+  font-family: 'Raleway';
+  font-family: "Open Sans Condensed";
+  font-family: "Dosis";
+  background-color: #555;
+  color: white;
+}
+.modal-content {
+  border: 5;
+  border-color: white;
+  background-color: #555;
+  color: white;
+}
+body.modal-open .visibleItems{
+  -webkit-filter: blur(4px);
+  -moz-filter: blur(4px);
+  -o-filter: blur(4px);
+  -ms-filter: blur(4px);
+  filter: blur(4px);
+  filter:progid:DXImageTransform.Microsoft.Blur(PixelRadius='4');
+}
+
+#jsalarmclock{
+  font-family: Tahoma;
+  font-weight: bold;
+  font-size: 12px;
+}
+
+#jsalarmclock div{
+  margin-bottom: 0.8em;
+}
+
+#jsalarmclock div.leftcolumn{
+  float: left;
+  width: 150px;
+  font-size: 13px;
+  background-color: lightyellow;
+  clear: left;
+}
+
+#jsalarmclock span{
+  margin-right: 5px;
+}
+
+#notes {
+  font-family: 'Raleway';
+  width: 250px;
+}
+.noteText {
+  padding-left: 10px;
+}

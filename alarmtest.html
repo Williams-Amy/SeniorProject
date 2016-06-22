@@ -21,7 +21,7 @@
     	},
     	'stop alarm' : function() {
     		alert("Stopping Alarm");
-			document.getElementById("resetbutton").click();
+    		document.getElementById("resetbutton").click();
     	},
     	'set an alarm for *time' : setAlarm,
     	'set a timer for *minminutes' : setTimer,
@@ -50,54 +50,88 @@ function setAlarm(time) {
 	{
 		var hour = timeArray[0][0] + timeArray[0][1];
 
-		// Switch to military time
-		if (timeArray[0].includes("p.m.")) {
-			hour = parseInt(hour) + 12;
-		}
+        // Special case: "12 o'clock"
+        if (hour == "12")
+        {
+        	if (timeArray[0].includes("a.m."))
+        	{
+        		hour = "00";
+        	}
+        	else
+        	{
+        		hour = "12";
+        	}
+        }
+        else {
+            // Switch to military time
+            if (timeArray[0].includes("p.m.")) {
+            	hour = parseInt(hour) + 12;
+            }
 
-		// Concatenate the "0" before it if it's in the single digits
-		if (hour < 10) {
-			hour = "0" + hour;
-		}
+            // Concatenate the "0" before it if it's in the single digits
+            if (hour < 10) {
+            	hour = "0" + hour[0];
+            }
+        }
 
-		// Set values
-		document.getElementById("hour").value = hour;
-		document.getElementById("min").value = "00";
-		document.getElementById("sec").value = "00";
+        // Set values
+        document.getElementById("hour").value = hour;
+        document.getElementById("min").value = "00";
+        document.getElementById("sec").value = "00";
 
-		// Click to set the alarm
-		document.getElementById("submitbutton").click();
-	}
-	else 
-	{
-		var hour = parseInt(timeArray[0]);
+        // Click to set the alarm
+        document.getElementById("submitbutton").click();
+    }
+    else 
+    {
+    	alert("split");
+    	var hour = parseInt(timeArray[0]);
 
-		// Switch to military time
-		if (timeArray[1].includes("p.m.") && (parseInt(timeArray[0]) != 12)) {
-			hour = hour + 12;
-		}
+    	// Special case: "12 o'clock"
+        if (hour == 12)
+        {
+        	if (timeArray[1].includes("a.m."))
+        	{
+        		hour = "00";
+        	}
+        	else
+        	{
+        		hour = "12";
+        	}
+        }
+        else {
+        	// Switch to military time
+        	if (timeArray[1].includes("p.m.") && (parseInt(timeArray[0]) != 12)) {
+        		hour = hour + 12;
+        	}
 
-		// Concatenate the "0" before it if it's in the single digits
-		if (hour < 10) {
-			hour = "0" + hour;
-		}
+        	// Concatenate the "0" before it if it's in the single digits
+        	if (hour < 10) {
+        		hour = "0" + hour;
+        	}
+    	}
 
-		// Set values
-		document.getElementById("hour").value = hour;
-		document.getElementById("min").value = timeArray[1][0] + timeArray[1][1];
-		document.getElementById("sec").value = "00";
+        // Set values
+        document.getElementById("hour").value = hour;
+        document.getElementById("min").value = timeArray[1][0] + timeArray[1][1];
+        document.getElementById("sec").value = "00";
 
-		// Click to set the alarm
-		document.getElementById("submitbutton").click();
-	}
+        // Click to set the alarm
+        document.getElementById("submitbutton").click();
+    }
+
+    // Indicate that the alarm has been set
+    alarmIsSet = true;
+    displayAlarm(time);
 }
+
 
 function setTimer(minutes) {
 	alert(minutes);
 }
 
 </script>
-<!--
+
 <style type="text/css">
 
 #jsalarmclock{
@@ -121,7 +155,7 @@ function setTimer(minutes) {
 #jsalarmclock span{
 	margin-right: 5px;
 }
--->
+
 </style>
 
 <script type="text/javascript">
@@ -237,16 +271,16 @@ init:function(){
 	<audio id="alarm" controls>
 		<source src="img/alarm.mp3" type="audio/mpeg">
 			Your browser does not support audio
-	</audio>
+		</audio>
 
-	<script type="text/javascript">
+		<script type="text/javascript">
 
-	jsalarm.init()
+		jsalarm.init()
 
-	</script>
+		</script>
 
-	<!-- My Test for setting an alarm -->
-	<script type="text/javascript">
+		<!-- My Test for setting an alarm -->
+		<script type="text/javascript">
 
 	// document.getElementById("hour").value = "13";
 	// document.getElementById("min").value = "57";

@@ -54,6 +54,15 @@ if (annyang) {
                 responsiveVoice.speak("You did not have an alarm set");
             }
         },
+        'create a note saying *text' : function(text) {
+            responsiveVoice.speak("Note created");
+            text = text.toUpperCase();
+            addNote(text);
+        },
+        'delete note *number' : function(number) {
+            responsiveVoice.speak("Note " + number + " deleted");
+            deleteNote(number);
+        },
         'set a timer for *minminutes' : setTimer,
         'set a timer for *min and *sec seconds' : setTimer
     };
@@ -87,10 +96,12 @@ var alarmIsSet = false;
 * Functionality for setting the alarm by parsing the 
 * voice command given.
 *****************************************************/
-function setAlarm(time) {
+function setAlarm(time) 
+{
     //alert("Time: " + time.split(":"));
 
-    // TODO: Simplify this
+
+    // Format string for speaking back to the user
     if (time.includes('.'))
     {
         var timeWithoutAmPm = time.replace('.', '');
@@ -104,19 +115,37 @@ function setAlarm(time) {
     //alert(timeArray[0]);
     //alert(timeArray[1]);
 
+
     // No minutes included (ex. '11 o'clock' or '11 pm')
     if (timeArray[1] == null)
     {
         var hour = timeArray[0][0] + timeArray[0][1];
 
-        // Switch to military time
-        if (timeArray[0].includes("p.m.")) {
-            hour = parseInt(hour) + 12;
+        // Special case: "12 o'clock"
+        if (hour == "12")
+        {
+            if (timeArray[0].includes("a.m."))
+            {
+                hour = "00";
+            }
+            else
+            {
+                hour = "12";
+            }
         }
+        else 
+        {
+            // Switch to military time
+            if (timeArray[0].includes("p.m.")) 
+            {
+                hour = parseInt(hour) + 12;
+            }
 
-        // Concatenate the "0" before it if it's in the single digits
-        if (hour < 10) {
-            hour = "0" + hour;
+            // Concatenate the "0" before it if it's in the single digits
+            if (hour < 10) 
+            {
+               hour = "0" + hour[0];
+            }
         }
 
         // Set values
@@ -131,14 +160,31 @@ function setAlarm(time) {
     {
         var hour = parseInt(timeArray[0]);
 
-        // Switch to military time
-        if (timeArray[1].includes("p.m.") && (parseInt(timeArray[0]) != 12)) {
-            hour = hour + 12;
+        // Special case: "12 o'clock"
+        if (hour == 12)
+        {
+            if (timeArray[1].includes("a.m."))
+            {
+                hour = "00";
+            }
+            else
+            {
+                hour = "12";
+            }
         }
+        else 
+        {
+            // Switch to military time
+            if (timeArray[1].includes("p.m.") && (parseInt(timeArray[0]) != 12)) 
+            {
+                hour = hour + 12;
+            }
 
-        // Concatenate the "0" before it if it's in the single digits
-        if (hour < 10) {
-            hour = "0" + hour;
+            // Concatenate the "0" before it if it's in the single digits
+            if (hour < 10) 
+            {
+                hour = "0" + hour;
+            }
         }
 
         // Set values

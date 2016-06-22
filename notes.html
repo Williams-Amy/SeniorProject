@@ -7,6 +7,14 @@ rel="stylesheet"
 type="text/css">
     <style>
     #notes {
+        font-family: 'Raleway';
+        width: 250px;
+    }
+    .noteText {
+        padding-left: 10px;
+    }
+    /*
+    #notes {
         display: inline;
     }
     .note {
@@ -28,6 +36,7 @@ type="text/css">
         float: left;
         font-size: 20px;
     }
+    */
     </style>
   <!-- Annyang -->
   <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.4.0/annyang.min.js"></script>
@@ -37,158 +46,14 @@ type="text/css">
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
 
-
+    <!-- Firebase -->
     <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.0.5/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.0.5/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.0.5/firebase-database.js"></script>
 
-    <script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyBvNc90G8Qgolc1ojkB6h_dU4X940CTsS8",
-    authDomain: "project-503436789893709174.firebaseapp.com",
-    databaseURL: "https://project-503436789893709174.firebaseio.com",
-    storageBucket: "project-503436789893709174.appspot.com",
-};
-
-var noteApp = firebase.initializeApp(config);
-
-noteApp.database().ref("1/1").set("Test 1");
-noteApp.database().ref("2/1").set("Test 2");
-noteApp.database().ref("3/1").set("Test 3");
-noteApp.database().ref("4/1").set("Test 4");
-
-
-
-// This gets keys and values
-noteApp.database().ref().on("child_added", function(snapshot) {
-    // alert("something added");
-    createNote(snapshot);
-});
-
-noteApp.database().ref().on("child_removed", function(snapshot) {
-    // alert("Something removed");
-    // createNote(snapshot);
-});
-
-noteApp.database().ref().on("child_changed", function(snapshot) {
-    // alert("something changed");
-    // createNote(snapshot);
-});
-
-
-function createNote(snapshot) {
-
-    // Create a div: id = key
-    var div = document.createElement("DIV");
-    div.className = "note";
-    div.id = snapshot.key;
-    // Title h3 tag: class = noteTitle
-    var titleElement = document.createElement("H3");
-    titleElement.className = "noteTitle";
-    titleElement.id = "noteTitle" + snapshot.key;
-    // Text p tag: class = noteText
-    var textElement = document.createElement("P");
-    textElement.className = "noteText";
-    textElement.id = "noteText" + snapshot.key;
-
-
-    // Add the title and text
-    var titleTextNode = document.createTextNode("Note " + snapshot.key);
-    var textNode = document.createTextNode(snapshot.val().toString().substring(1));
-
-    // Append nodes to respective elements
-    titleElement.appendChild(titleTextNode);
-    textElement.appendChild(textNode);
-
-    // Add nodes to div and div to body
-    div.appendChild(titleElement);
-    div.appendChild(textElement);
-
-    document.getElementById("notes").appendChild(div);
-}
-
-var noteNums = [];
-
-function updateArray() {
-    noteNums = [];
-
-    $("div.note").each(function() {
-        noteNums.push(this.id);
-  });
-}
-
-function addNote(text) {
-    updateArray();
-
-    //alert("Array Length: " + noteNums.length);
-    var newID = parseInt(++noteNums.length);
-
-    // noteApp.database().ref(newID + "/1").set("Test " + newID);    
-    noteApp.database().ref(newID + "/1").set(text);    
-}
-
-function deleteNote(num) {
-    updateArray();
-
-    // If it's the last element
-    if (num == noteNums.length) {
-        // alert("Only one item needed changing");
-
-        // Remove from database
-        noteApp.database().ref(num + "/1").remove();
-
-        // Remove from page
-        var element = document.getElementById(num);
-        element.parentNode.removeChild(element);
-    }
-    else {
-        // Remove from database
-        noteApp.database().ref(num + "/1").remove();
-
-        // Remove from page
-        // var element = document.getElementById(num);
-        // element.parentNode.removeChild(element);
-
-        for (var i = 0; i < noteNums.length; i++) {
-            // alert("Note numbers: " + noteNums[i]);
-
-            // For numbers that need to be shifted
-            if (noteNums[i] > num) {
-                // Store the original number for later
-                var origNum = noteNums[i];
-                //alert("This element needs to be shifted: " + origNum);
-
-                // Change the number in the array
-                noteNums[i] = origNum - 1;
-
-                var eleText = document.getElementById("noteText" + origNum).innerHTML;
-                //alert(eleText);
-
-                //alert("Removing: " + origNum);
-
-                // Remove from database
-                noteApp.database().ref(origNum + "/1").remove();
-
-                // Remove from page
-                var element = document.getElementById(origNum);
-                element.parentNode.removeChild(element);
-
-                noteApp.database().ref(noteNums[i] + "/1").set(eleText);
-                // var origText = noteApp.database().ref(origNum + "/1").val();
-                // alert(origText);
-                //    noteApp.database().ref(noteNums + "/1").set();
-            }
-        }
-
-        // Remove from page
-        var element = document.getElementById(num);
-        element.parentNode.removeChild(element);
-    }
-}
-
-</script>
+    <!-- Notes -->
+    <script type="text/javascript" src="js/notes.js"></script>
 
 </head>
 <body>

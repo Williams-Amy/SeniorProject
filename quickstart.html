@@ -3,6 +3,9 @@
 <head>
   <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
 
+  <!-- Stylesheets -->
+  <link href="css/main.css" rel="stylesheet" type="text/css"/>
+
     <style>
     body {
         font-family: 'Raleway';
@@ -16,7 +19,7 @@
   <script type="text/javascript">
       // Run the code periodically
       var interval = setInterval(function(){
-        document.getElementById("output").innerHTML = "";
+        document.getElementById("googleEvents").innerHTML = "";
         loadCalendarApi();
       }, 600000);
 
@@ -162,16 +165,36 @@
 
               var hrs = formatted.getHours();
               var mins = formatted.getMinutes();
+
+              // Format. Example: Display 7:00 instead of 7:0
+              if (parseInt(mins) == 0)
+              {
+                mins = "00";
+              }
+
               var ampm;
 
-              if (hrs >= 12) 
+              if (hrs > 12) 
               {
+                // After 12 PM: Change from military time
                 hrs = hrs % 12;
-                ampm = "pm";
+                ampm = "p.m.";
+              }
+              else if (hrs == 12) 
+              {
+                // Special Case: 12 PM
+                ampm = "p.m.";
+              }
+              else if (hrs == 0)
+              {
+                // Special Case: 12 AM
+                hrs = 12;
+                ampm = "a.m.";
               }
               else
               {
-                ampm = "am";
+                // Before 12 PM
+                ampm = "a.m.";
               }
 
               //appendPre(event.summary + ' (' + when + ')');
@@ -194,7 +217,7 @@
        */
        function appendPre(message) 
        {
-        var pre = document.getElementById('output');
+        var pre = document.getElementById('googleEvents');
         var textContent = document.createTextNode(message + '\n');
         pre.appendChild(textContent);
       }
@@ -212,6 +235,6 @@
         </button>
       </div>
       <h3>Upcoming Events:</h3>
-      <pre id="output"></pre>
+      <pre id="googleEvents"></pre>
     </body>
     </html>
