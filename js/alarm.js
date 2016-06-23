@@ -22,6 +22,9 @@ var jsalarm={
       var sound = document.getElementById("alarm");
       sound.currentTime = 6;
       sound.play();
+      // Open the alarm modal
+      // openAlarmModal();
+      triggerAlarmModal();
 
       // Re-initialize the clock and alarm
       jsalarm.init();

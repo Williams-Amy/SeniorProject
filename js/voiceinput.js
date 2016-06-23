@@ -36,11 +36,18 @@ if (annyang) {
             document.getElementById("modalDismiss").click();
             responsiveVoice.speak("OK");
         },
+        'test alarm' : function() {
+            alert("testing");
+            document.getElementById("alarmTrigger").click();
+        },
+        'dismiss alarm' : function() {
+            document.getElementById("alarmModalDismiss").click();
+            responsiveVoice.speak("Alarm dismissed");
+        },
         'set an alarm for *time' : setAlarm,
         'create an alarm for *time' : setAlarm,
         'make an alarm for *time' : setAlarm,
         'stop alarm' : function() {
-            //alert("Stopping Alarm");
             document.getElementById("resetbutton").click();
             displayAlarm("No alarms set");
 
@@ -109,7 +116,7 @@ function setAlarm(time)
     }
 
     // Tell the user that the alarm has been set
-    responsiveVoice.speak("Ok, I have set an alarm for " + timeWithoutAmPm + " for you");
+    responsiveVoice.speak("Ok, I have set an alarm for " + timeWithoutAmPm);
 
     var timeArray = time.split(":");
     //alert(timeArray[0]);

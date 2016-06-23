@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Senior Project Test</title>
+  <title>Senior Project</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -14,15 +14,13 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 
   <!-- Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/3.0.5/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/3.0.5/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/3.0.5/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.0.5/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.0.5/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/3.0.5/firebase-database.js"></script>
 
   <!-- Annyang -->
   <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.4.0/annyang.min.js"></script>
-
-
 
   <!-- Text-to-Speech -->
   <script src='https://code.responsivevoice.org/responsivevoice.js'></script>
@@ -44,9 +42,7 @@
   <!-- Stylesheets -->
   <link href="css/main.css" rel="stylesheet" type="text/css"/>
 
-
-
-  </head>
+</head>
 </head>
 <body onload="startTime()">
   <div class="visibleItems">
@@ -64,39 +60,34 @@
       <object type="text/html" data="quickstart.html"></object>
       <!-- Alarm display -->
       <div>
-        <h3>Alarms:</h3>
+        <img width="25px" src="img/alarm.png"/>
+        <h3 style="display:inline">Alarms:</h3>
         <p id="alarmDisplay">No alarms set<p>
+        </div>
+        <!-- Menu Modal Trigger Button -->
+        <button type="button" class="btn btn-info btn-lg" id="modalTrigger" data-toggle="modal" data-target="#Modal" >Open Modal</button>
+        <!-- Alarm Modal Trigger Button -->
+        <button type="button" class="btn btn-info btn-lg" id="alarmTrigger" data-toggle="modal" data-target="#alarmModal">Open Modal</button>
       </div>
-      <!-- Modal Trigger Button -->
-      <button type="button" class="btn btn-info btn-lg" id="modalTrigger" data-toggle="modal" data-target="#Modal" style="display:none">Open Modal</button>
-      <br/>
-    </div>
 
-    <!-- Right hand items -->
-    <div class="col-sm-6" style="text-align: right">
-      <iframe frameborder="0" scrolling="no" width="350" height="250" src="weather.html"></iframe>
-      <div >
-        <h3 style="display: inline"> News </h3>
-        <img style="display: inline" src="img/News.png" width="5%"/>
+      <!-- Right hand items -->
+      <div class="col-sm-6" style="text-align: right">
+        <iframe frameborder="0" scrolling="no" width="400" height="225" src="weather.html"></iframe>
+        <div >
+          <h3 style="display: inline"> News </h3>
+          <img style="display: inline" src="img/News.png" width="5%"/>
+        </div>
+        <!-- start feedwind code -->
+        <script type="text/javascript">
+        document.write('\x3Cscript type="text/javascript" src="' + ('https:' == document.location.protocol ? 'https://' : 'http://') + 'feed.mikle.com/js/rssmikle.js">\x3C/script>');</script><script type="text/javascript">(function() {var params = {rssmikle_url: "http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",rssmikle_frame_width: "350",rssmikle_frame_height: "400",frame_height_by_article: "0",rssmikle_target: "_blank",rssmikle_font: "Verdana, Arial, Helvetica, sans-serif",rssmikle_font_size: "12",rssmikle_border: "off",responsive: "off",rssmikle_css_url: "",text_align: "left",text_align2: "justify",corner: "off",scrollbar: "off",autoscroll: "on_mc",scrolldirection: "up",scrollstep: "3",mcspeed: "70",sort: "Off",rssmikle_title: "off",rssmikle_title_sentence: "",rssmikle_title_link: "",rssmikle_title_bgcolor: "#0066FF",rssmikle_title_color: "#FFFFFF",rssmikle_title_bgimage: "",rssmikle_item_bgcolor: "#000000",rssmikle_item_bgimage: "",rssmikle_item_title_length: "55",rssmikle_item_title_color: "#FFFFFF",rssmikle_item_border_bottom: "off",rssmikle_item_description: "on",item_link: "off",rssmikle_item_description_length: "150",rssmikle_item_description_color: "#FFFFFF",rssmikle_item_date: "off",rssmikle_timezone: "Etc/GMT",datetime_format: "%b %e, %Y %l:%M %p",item_description_style: "text",item_thumbnail: "full",item_thumbnail_selection: "auto",article_num: "15",rssmikle_item_podcast: "off",keyword_inc: "",keyword_exc: ""};feedwind_show_widget_iframe(params);})();
+        </script>
+        <div style="font-size:10px; text-align:center; width:350px;">
+          <a href="http://feed.mikle.com/" target="_blank" style="color:#CCCCCC;">RSS Feed Widget</a>
+        </div>
       </div>
-      <!-- start feedwind code -->
-      <script type="text/javascript">
-      document.write('\x3Cscript type="text/javascript" src="' + ('https:' == document.location.protocol ? 'https://' : 'http://') + 'feed.mikle.com/js/rssmikle.js">\x3C/script>');</script><script type="text/javascript">(function() {var params = {rssmikle_url: "http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",rssmikle_frame_width: "350",rssmikle_frame_height: "400",frame_height_by_article: "0",rssmikle_target: "_blank",rssmikle_font: "Verdana, Arial, Helvetica, sans-serif",rssmikle_font_size: "12",rssmikle_border: "off",responsive: "off",rssmikle_css_url: "",text_align: "left",text_align2: "justify",corner: "off",scrollbar: "off",autoscroll: "on_mc",scrolldirection: "up",scrollstep: "3",mcspeed: "70",sort: "Off",rssmikle_title: "off",rssmikle_title_sentence: "",rssmikle_title_link: "",rssmikle_title_bgcolor: "#0066FF",rssmikle_title_color: "#FFFFFF",rssmikle_title_bgimage: "",rssmikle_item_bgcolor: "#000000",rssmikle_item_bgimage: "",rssmikle_item_title_length: "55",rssmikle_item_title_color: "#FFFFFF",rssmikle_item_border_bottom: "off",rssmikle_item_description: "on",item_link: "off",rssmikle_item_description_length: "150",rssmikle_item_description_color: "#FFFFFF",rssmikle_item_date: "off",rssmikle_timezone: "Etc/GMT",datetime_format: "%b %e, %Y %l:%M %p",item_description_style: "text",item_thumbnail: "full",item_thumbnail_selection: "auto",article_num: "15",rssmikle_item_podcast: "off",keyword_inc: "",keyword_exc: ""};feedwind_show_widget_iframe(params);})();
-      </script>
-      <div style="font-size:10px; text-align:center; width:350px;">
-        <a href="http://feed.mikle.com/" target="_blank" style="color:#CCCCCC;">RSS Feed Widget</a>
-      </div>
-    </div>
-    <!-- <canvas id="canvas" width="400" height="400"
-        style="background-color:black">
-      </canvas> -->
-      <input onclick='responsiveVoice.speak("Ok, I have set an alarm for you");' type='button' value='🔊 Play' />
-
-      <!-- <iframe name="iframe1" id="iframe1" frameborder="0" scrolling="no" width="400" height="250" src="notes.html"></iframe> -->
     </div>
   </div>
-  <!-- Modal Code -->
-  <div class="container">
+  <!-- Menu Modal Code -->
     <!-- Modal -->
     <div class="modal fade" id="Modal" role="dialog">
       <div class="modal-dialog">
@@ -108,9 +99,11 @@
             <h4 class="modal-title">Menu Items</h4>
           </div>
           <div class="modal-body">
-            <p><h3 style="display: inline;">Set an Alarm</h3> Say, "Set an alarm for 9:00"</p>
-            <p><h3 style="display: inline;">Test</h3> do something here</p>
-            <p><h3 style="display: inline;">Test</h3> do something here</p>
+            <p><h3 style="display: inline;">Menu/Close Menu</h3> &nbsp; - Open and close this menu</p>
+            <p><h3 style="display: inline;">Set an Alarm for...</h3> &nbsp; - Try, "Set an alarm for 9:00"</p>
+            <p><h3 style="display: inline;">Stop Alarm</h3> &nbsp; - Stops your current alarm</p>
+            <p><h3 style="display: inline;">Create a Note That Says...</h3> &nbsp; - Try, "Create a note that says 'Remember to stop by the bank'"</p>
+            <p><h3 style="display: inline;">Delete Note X</h3> &nbsp; - "Delete note 3"</p>
           </div>
           <div class="modal-footer" style="display:none">
             <button id="modalDismiss" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -118,8 +111,28 @@
         </div>
       </div>
     </div>
-  </div>
-  <!-- Alarm Clock -->
+  <!-- Alarm Modal Code -->
+    <!-- Modal -->
+    <div class="modal fade" id="alarmModal" role="dialog">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-header">
+            <button style="display:none" type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title"></h4>
+          </div>
+        <div class="modal-content">
+          <div class="modal-body">
+            <h3>Your alarm went off</h3>
+            <br/>
+            <p>Say "dismiss alarm" to remove this message</p>
+          </div>
+          <div class="modal-footer" style="display:none">
+            <button id="alarmModalDismiss" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!-- Alarm Clock *Note: Not displayed to user -->
   <div style="color:black;display: none">
     <form action="" method="">
       <div id="jsalarmclock">
@@ -140,25 +153,20 @@
           </span>
         </div>
         <div>
-          <!-- <div class="leftcolumn">Set Alarm Action:
-          </div> 
-          <input type="text" id="musicloc" size="55" value="http://www.youtube.com/watch?v=v1zY_tV5kaQ" /> 
-          <span style="font: normal 11px Tahoma">*Location of page to launch</span>
-        </div> -->
-        <input type="button" value="Set Alarm!" id="submitbutton" /> 
-        <input type="reset" value="reset" id="resetbutton" />
+          <input type="button" value="Set Alarm!" id="submitbutton" /> 
+          <input type="reset" value="reset" id="resetbutton" />
+        </div>
+      </form>
+      <audio id="alarm" controls>
+        <source src="img/alarm.mp3" type="audio/mpeg">
+          Your browser does not support audio
+        </audio>
       </div>
-    </form>
-    <audio id="alarm" controls>
-      <source src="img/alarm.mp3" type="audio/mpeg">
-        Your browser does not support audio
-      </audio>
-
       <script type="text/javascript">
-
+      // Start up the alarm tracking clock
       jsalarm.init()
-
       </script>
     </div>
-  </body>
-  </html>
+  </div>
+</body>
+</html>

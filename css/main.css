@@ -3,6 +3,7 @@ body {
   font-family: "Open Sans Condensed";
   font-family: "Dosis";
   background-color: #555;
+  /*background-color: black;*/
   color: white;
 }
 .modal-content {
