@@ -37,10 +37,15 @@ if (annyang) {
             responsiveVoice.speak("OK");
         },
         'test alarm' : function() {
-            alert("testing");
             document.getElementById("alarmTrigger").click();
         },
         'dismiss alarm' : function() {
+            console.log("Dismissing alarm");
+            
+            // Indicate that the alarm has been dismissed
+            alarmIsSet = false;
+            displayAlarm();
+
             document.getElementById("alarmModalDismiss").click();
             responsiveVoice.speak("Alarm dismissed");
         },
@@ -48,6 +53,7 @@ if (annyang) {
         'create an alarm for *time' : setAlarm,
         'make an alarm for *time' : setAlarm,
         'stop alarm' : function() {
+            console.log("Stopping Alarm");
             document.getElementById("resetbutton").click();
             displayAlarm("No alarms set");
 
@@ -62,13 +68,32 @@ if (annyang) {
             }
         },
         'create a note saying *text' : function(text) {
+            console.log("Create a note with text: " + text);
+            responsiveVoice.speak("Note created");
+            text = text.toUpperCase();
+            addNote(text);
+        },
+        'create a note that says *text' : function(text) {
+            console.log("Create a note with text: " + text);
             responsiveVoice.speak("Note created");
             text = text.toUpperCase();
             addNote(text);
         },
         'delete note *number' : function(number) {
+            console.log("Deleting note " + number);
             responsiveVoice.speak("Note " + number + " deleted");
             deleteNote(number);
+        },
+        'remove note *number' : function(number) {
+            console.log("Deleting note " + number);
+            responsiveVoice.speak("Note " + number + " deleted");
+            deleteNote(number);
+        },
+        'Traffic Map' : function() {
+            mapToggle();
+        },
+        'Close Traffic Map' : function() {
+            mapToggle();
         },
         'set a timer for *minminutes' : setTimer,
         'set a timer for *min and *sec seconds' : setTimer
@@ -106,7 +131,7 @@ var alarmIsSet = false;
 function setAlarm(time) 
 {
     //alert("Time: " + time.split(":"));
-
+    console.log("Setting an alarm for: " + time);
 
     // Format string for speaking back to the user
     if (time.includes('.'))
@@ -214,11 +239,37 @@ function displayAlarm(time)
 
     if (alarmIsSet) 
     {
-        alarmDisp.style.display = "visible";
+        //alarmDisp.style.removeProperty('display');
+        //alarmDisp.style.display = "visible";
         alarmDisp.innerHTML = time;
     }
     else
     {
-        alarmDisp.style.display = "none";
+        //alarmDisp.style.removeProperty('display');
+        //alarmDisp.style.display = "none";
+        alarmDisp.innerHTML = "No alarms set";
     }
+}
+
+var mapOn = false;
+
+function mapToggle() 
+{
+  var trafficMap = document.getElementById("trafficMap");
+
+  if (mapOn) {
+        console.log("Map was visible");
+        trafficMap.style.display = "none";
+        mapOn = false;
+      }
+      else {
+        console.log("Map was not visible");
+        trafficMap.style.display = "";
+        // initMap();
+
+        // Reload the map
+        trafficMap.src = trafficMap.src;
+
+        mapOn = true;
+      }
 }

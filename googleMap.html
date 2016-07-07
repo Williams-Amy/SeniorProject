@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Traffic layer</title>
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+        width: 100%;
+        /*
+        position: fixed;
+        margin: 5%;
+        margin-top: 3%;
+        margin-bottom: 1%;
+        border: 1px solid #ccc;-*/
+      }
+    </style>
+    <script>
+
+    var mapOn = true;
+
+    function toggleMap() {
+
+      var mapContainerElement = document.getElementById("map");
+
+      if (mapOn) {
+        console.log("Map was visible");
+        mapContainerElement.style.display = "none";
+        mapOn = false;
+      }
+      else {
+        console.log("Map was not visible");
+        mapContainerElement.style.display = "";
+        initMap();
+        mapOn = true;
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <!-- <button id="mapTrigger" onclick="toggleMap()">Toggle Map</button> -->
+    <div id="map"></div>
+    <script>
+
+      function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 13,
+          center: {lat: 32.1697795, lng: -110.8654603}
+        });
+
+        var trafficLayer = new google.maps.TrafficLayer();
+        trafficLayer.setMap(map);
+      }
+
+      // var home = new google.maps.Marker({
+      //   position: {lat: 32.189067, lng: -110.819014},
+      //   map: map
+      // });
+
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBvNc90G8Qgolc1ojkB6h_dU4X940CTsS8&callback=initMap">
+    </script>
+  </body>
+</html>

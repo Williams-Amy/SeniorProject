@@ -43,21 +43,18 @@
   <link href="css/main.css" rel="stylesheet" type="text/css"/>
 
 </head>
-</head>
 <body onload="startTime()">
   <div class="visibleItems">
     <!-- Left hand items -->
     <div class="col-sm-6">
+      <!-- Traffic Map -->
+      <!-- <button id="displayMap" onclick="mapToggle()" >Map</button><br/> -->
+      <iframe id="trafficMap" frameborder="0" scrolling="no"  src="googleMap.html"></iframe>
       <!-- Clock -->
       <div>
         <span id="time" style="font-size: 100px"></span>
         <span id="ampm" style="font-size: 20px"></span>
       </div>
-      <!-- Notes -->
-      <div id="notes"></div>
-      <!-- Google Calendar -->
-      <!-- <iframe frameborder="0" scrolling="no" width="400" height="250" src="quickstart.html"></iframe> -->
-      <object type="text/html" data="quickstart.html"></object>
       <!-- Alarm display -->
       <div>
         <img width="25px" src="img/alarm.png"/>
@@ -65,9 +62,15 @@
         <p id="alarmDisplay">No alarms set<p>
         </div>
         <!-- Menu Modal Trigger Button -->
-        <button type="button" class="btn btn-info btn-lg" id="modalTrigger" data-toggle="modal" data-target="#Modal" >Open Modal</button>
+        <button type="button" class="btn btn-info btn-lg" id="modalTrigger" data-toggle="modal" style="display:none" data-target="#Modal" >Open Modal</button>
         <!-- Alarm Modal Trigger Button -->
-        <button type="button" class="btn btn-info btn-lg" id="alarmTrigger" data-toggle="modal" data-target="#alarmModal">Open Modal</button>
+        <button type="button" class="btn btn-info btn-lg" style="display:none" id="alarmTrigger" data-toggle="modal" data-target="#alarmModal">Open Modal</button>
+        <!-- Notes -->
+        <div id="notes"></div>
+        <!-- Google Calendar -->
+        <!-- <iframe frameborder="0" scrolling="no" width="400" height="250" src="quickstart.html"></iframe> -->
+        <object type="text/html" data="quickstart.html"></object>
+
       </div>
 
       <!-- Right hand items -->
@@ -81,58 +84,56 @@
         <script type="text/javascript">
         document.write('\x3Cscript type="text/javascript" src="' + ('https:' == document.location.protocol ? 'https://' : 'http://') + 'feed.mikle.com/js/rssmikle.js">\x3C/script>');</script><script type="text/javascript">(function() {var params = {rssmikle_url: "http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml",rssmikle_frame_width: "350",rssmikle_frame_height: "400",frame_height_by_article: "0",rssmikle_target: "_blank",rssmikle_font: "Verdana, Arial, Helvetica, sans-serif",rssmikle_font_size: "12",rssmikle_border: "off",responsive: "off",rssmikle_css_url: "",text_align: "left",text_align2: "justify",corner: "off",scrollbar: "off",autoscroll: "on_mc",scrolldirection: "up",scrollstep: "3",mcspeed: "70",sort: "Off",rssmikle_title: "off",rssmikle_title_sentence: "",rssmikle_title_link: "",rssmikle_title_bgcolor: "#0066FF",rssmikle_title_color: "#FFFFFF",rssmikle_title_bgimage: "",rssmikle_item_bgcolor: "#000000",rssmikle_item_bgimage: "",rssmikle_item_title_length: "55",rssmikle_item_title_color: "#FFFFFF",rssmikle_item_border_bottom: "off",rssmikle_item_description: "on",item_link: "off",rssmikle_item_description_length: "150",rssmikle_item_description_color: "#FFFFFF",rssmikle_item_date: "off",rssmikle_timezone: "Etc/GMT",datetime_format: "%b %e, %Y %l:%M %p",item_description_style: "text",item_thumbnail: "full",item_thumbnail_selection: "auto",article_num: "15",rssmikle_item_podcast: "off",keyword_inc: "",keyword_exc: ""};feedwind_show_widget_iframe(params);})();
         </script>
-        <div style="font-size:10px; text-align:center; width:350px;">
+        <div style="font-size:10px; text-align:center; width:350px; display:none;">
           <a href="http://feed.mikle.com/" target="_blank" style="color:#CCCCCC;">RSS Feed Widget</a>
         </div>
       </div>
     </div>
   </div>
   <!-- Menu Modal Code -->
-    <!-- Modal -->
-    <div class="modal fade" id="Modal" role="dialog">
-      <div class="modal-dialog">
+  <div class="modal fade" id="Modal" role="dialog">
+    <div class="modal-dialog">
 
-        <!-- Modal content-->
-        <div class="modal-content">
-          <div class="modal-header">
-            <button style="display:none" type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Menu Items</h4>
-          </div>
-          <div class="modal-body">
-            <p><h3 style="display: inline;">Menu/Close Menu</h3> &nbsp; - Open and close this menu</p>
-            <p><h3 style="display: inline;">Set an Alarm for...</h3> &nbsp; - Try, "Set an alarm for 9:00"</p>
-            <p><h3 style="display: inline;">Stop Alarm</h3> &nbsp; - Stops your current alarm</p>
-            <p><h3 style="display: inline;">Create a Note That Says...</h3> &nbsp; - Try, "Create a note that says 'Remember to stop by the bank'"</p>
-            <p><h3 style="display: inline;">Delete Note X</h3> &nbsp; - "Delete note 3"</p>
-          </div>
-          <div class="modal-footer" style="display:none">
-            <button id="modalDismiss" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  <!-- Alarm Modal Code -->
-    <!-- Modal -->
-    <div class="modal fade" id="alarmModal" role="dialog">
-      <div class="modal-dialog">
-        <!-- Modal content-->
+      <!-- Modal content-->
+      <div class="modal-content">
         <div class="modal-header">
-            <button style="display:none" type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title"></h4>
-          </div>
-        <div class="modal-content">
-          <div class="modal-body">
-            <h3>Your alarm went off</h3>
-            <br/>
-            <p>Say "dismiss alarm" to remove this message</p>
-          </div>
-          <div class="modal-footer" style="display:none">
-            <button id="alarmModalDismiss" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          </div>
+          <button style="display:none" type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Menu Items</h4>
+        </div>
+        <div class="modal-body">
+          <p><h3 style="display: inline;">Menu/Close Menu</h3> &nbsp; - Open and close this menu</p>
+          <p><h3 style="display: inline;">Set an Alarm for...</h3> &nbsp; - Try, "Set an alarm for 9:00"</p>
+          <p><h3 style="display: inline;">Stop Alarm</h3> &nbsp; - Stops your current alarm</p>
+          <p><h3 style="display: inline;">Create a Note That Says...</h3> &nbsp; - Try, "Create a note that says 'Remember to stop by the bank'"</p>
+          <p><h3 style="display: inline;">Delete Note X</h3> &nbsp; - "Delete note 3"</p>
+        </div>
+        <div class="modal-footer" style="display:none">
+          <button id="modalDismiss" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
-  <!-- Alarm Clock *Note: Not displayed to user -->
+  </div>
+  <!-- Alarm Modal Code -->
+  <div class="modal fade" id="alarmModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-header">
+        <button style="display:none" type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"></h4>
+      </div>
+      <div class="modal-content">
+        <div class="modal-body">
+          <h3>Your alarm went off</h3>
+          <br/>
+          <p>Say "dismiss alarm" to remove this message</p>
+        </div>
+        <div class="modal-footer" style="display:none">
+          <button id="alarmModalDismiss" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Alarm Clock (Not displayed to user) -->
   <div style="color:black;display: none">
     <form action="" method="">
       <div id="jsalarmclock">
@@ -157,6 +158,7 @@
           <input type="reset" value="reset" id="resetbutton" />
         </div>
       </form>
+      <!-- Audio element for the alarm (Not displayed) -->
       <audio id="alarm" controls>
         <source src="img/alarm.mp3" type="audio/mpeg">
           Your browser does not support audio
@@ -165,6 +167,10 @@
       <script type="text/javascript">
       // Start up the alarm tracking clock
       jsalarm.init()
+      </script>
+      <script>
+      // For some reason the traffic map does not work if it is initially set to not display so we do it here.
+      document.getElementById("trafficMap").style.display = "none";
       </script>
     </div>
   </div>
