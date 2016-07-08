@@ -12,9 +12,6 @@ if (annyang) {
 
     // Initial Commands
     var commands = {
-        'wake up': function () {
-            test();
-        },
         'one' : function () {
             responsiveVoice.speak("1");
         },
@@ -25,7 +22,9 @@ if (annyang) {
             responsiveVoice.speak("3");
         },
         'display commands' : function () {
-            responsiveVoice.speak("Menu appear");
+        },
+        'test alarm' : function() {
+            document.getElementById("alarmTrigger").click();
         },
         'menu' : function () {
             document.getElementById("modalTrigger").click();
@@ -35,9 +34,6 @@ if (annyang) {
         'close (menu)' : function() {
             document.getElementById("modalDismiss").click();
             responsiveVoice.speak("OK");
-        },
-        'test alarm' : function() {
-            document.getElementById("alarmTrigger").click();
         },
         'dismiss alarm' : function() {
             console.log("Dismissing alarm");
@@ -89,6 +85,10 @@ if (annyang) {
             responsiveVoice.speak("Note " + number + " deleted");
             deleteNote(number);
         },
+        'Traffic' : mapToggle,
+        'Traffic Map' : mapToggle,
+        'Close Traffic' : mapToggle,
+        'Close Traffic Map' : mapToggle,
         'Traffic Map' : function() {
             mapToggle();
         },
@@ -118,8 +118,8 @@ function sleep(milliseconds) {
   for (var i = 0; i < 1e7; i++) {
     if ((new Date().getTime() - start) > milliseconds){
       break;
-  }
-}
+    } 
+    }
 }
 
 var alarmIsSet = false;
@@ -128,14 +128,13 @@ var alarmIsSet = false;
 * Functionality for setting the alarm by parsing the 
 * voice command given.
 *****************************************************/
-function setAlarm(time) 
-{
+function setAlarm(time) {
     //alert("Time: " + time.split(":"));
     console.log("Setting an alarm for: " + time);
+    var timeWithoutAmPm = time;
 
     // Format string for speaking back to the user
-    if (time.includes('.'))
-    {
+    if (time.includes('.')) {
         var timeWithoutAmPm = time.replace('.', '');
         timeWithoutAmPm = timeWithoutAmPm.replace('.', '');
     }
@@ -149,33 +148,26 @@ function setAlarm(time)
 
 
     // No minutes included (ex. '11 o'clock' or '11 pm')
-    if (timeArray[1] == null)
-    {
+    if (timeArray[1] == null) {
         var hour = timeArray[0][0] + timeArray[0][1];
 
         // Special case: "12 o'clock"
-        if (hour == "12")
-        {
-            if (timeArray[0].includes("a.m."))
-            {
+        if (hour == "12") {
+            if (timeArray[0].includes("a.m.")) {
                 hour = "00";
             }
-            else
-            {
+            else {
                 hour = "12";
             }
         }
-        else 
-        {
+        else {
             // Switch to military time
-            if (timeArray[0].includes("p.m.")) 
-            {
+            if (timeArray[0].includes("p.m.")) {
                 hour = parseInt(hour) + 12;
             }
 
             // Concatenate the "0" before it if it's in the single digits
-            if (hour < 10) 
-            {
+            if (hour < 10) {
                hour = "0" + hour[0];
             }
         }
@@ -188,33 +180,26 @@ function setAlarm(time)
         // Click to set the alarm
         document.getElementById("submitbutton").click();
     }
-    else 
-    {
+    else {
         var hour = parseInt(timeArray[0]);
 
         // Special case: "12 o'clock"
-        if (hour == 12)
-        {
-            if (timeArray[1].includes("a.m."))
-            {
+        if (hour == 12) {
+            if (timeArray[1].includes("a.m.")) {
                 hour = "00";
             }
-            else
-            {
+            else {
                 hour = "12";
             }
         }
-        else 
-        {
+        else {
             // Switch to military time
-            if (timeArray[1].includes("p.m.") && (parseInt(timeArray[0]) != 12)) 
-            {
+            if (timeArray[1].includes("p.m.") && (parseInt(timeArray[0]) != 12)) {
                 hour = hour + 12;
             }
 
             // Concatenate the "0" before it if it's in the single digits
-            if (hour < 10) 
-            {
+            if (hour < 10) {
                 hour = "0" + hour;
             }
         }
@@ -233,18 +218,15 @@ function setAlarm(time)
     displayAlarm(time);
 }
 
-function displayAlarm(time) 
-{
+function displayAlarm(time) {
     var alarmDisp = document.getElementById("alarmDisplay");
 
-    if (alarmIsSet) 
-    {
+    if (alarmIsSet) {
         //alarmDisp.style.removeProperty('display');
         //alarmDisp.style.display = "visible";
         alarmDisp.innerHTML = time;
     }
-    else
-    {
+    else {
         //alarmDisp.style.removeProperty('display');
         //alarmDisp.style.display = "none";
         alarmDisp.innerHTML = "No alarms set";
@@ -253,8 +235,7 @@ function displayAlarm(time)
 
 var mapOn = false;
 
-function mapToggle() 
-{
+function mapToggle() {
   var trafficMap = document.getElementById("trafficMap");
 
   if (mapOn) {

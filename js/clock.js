@@ -9,7 +9,7 @@ function startTime() {
 
         // AM or PM?
         var amOrPm = digitalH/12;
-        if (amOrPm == 1) {
+        if (amOrPm < 1) {
           amOrPm = "AM"
         } else {
           amOrPm = "PM"

@@ -69,7 +69,7 @@
         <div id="notes"></div>
         <!-- Google Calendar -->
         <!-- <iframe frameborder="0" scrolling="no" width="400" height="250" src="quickstart.html"></iframe> -->
-        <object type="text/html" data="quickstart.html"></object>
+        <object type="text/html" data="calendar.html"></object>
 
       </div>
 
@@ -134,7 +134,7 @@
     </div>
   </div>
   <!-- Alarm Clock (Not displayed to user) -->
-  <div style="color:black;display: none">
+  <div style="color:black;background-color:#222;display: visible">
     <form action="" method="">
       <div id="jsalarmclock">
         <div>
@@ -158,20 +158,24 @@
           <input type="reset" value="reset" id="resetbutton" />
         </div>
       </form>
+
       <!-- Audio element for the alarm (Not displayed) -->
       <audio id="alarm" controls>
         <source src="img/alarm.mp3" type="audio/mpeg">
           Your browser does not support audio
         </audio>
       </div>
+
       <script type="text/javascript">
       // Start up the alarm tracking clock
       jsalarm.init()
       </script>
+
       <script>
       // For some reason the traffic map does not work if it is initially set to not display so we do it here.
       document.getElementById("trafficMap").style.display = "none";
       </script>
+
     </div>
   </div>
 </body>
