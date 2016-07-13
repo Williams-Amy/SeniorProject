@@ -73,4 +73,5 @@ body.modal-open .visibleItems{
   margin-bottom: 1%;
   border: 1px solid #ccc;
 
+  z-index: 5;
 }

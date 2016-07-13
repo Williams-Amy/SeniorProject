@@ -48,21 +48,8 @@ if (annyang) {
         'set an alarm for *time' : setAlarm,
         'create an alarm for *time' : setAlarm,
         'make an alarm for *time' : setAlarm,
-        'stop alarm' : function() {
-            console.log("Stopping Alarm");
-            document.getElementById("resetbutton").click();
-            displayAlarm("No alarms set");
-
-            if (alarmIsSet) 
-            {
-                alarmIsSet = false;
-                responsiveVoice.speak("Alright, I have cancelled your alarm");
-            }
-            else
-            {
-                responsiveVoice.speak("You did not have an alarm set");
-            }
-        },
+        'stop alarm' : cancelAlarm,
+        'cancel alarm' : cancelAlarm,
         'create a note saying *text' : function(text) {
             console.log("Create a note with text: " + text);
             responsiveVoice.speak("Note created");
@@ -87,8 +74,10 @@ if (annyang) {
         },
         'Traffic' : mapToggle,
         'Traffic Map' : mapToggle,
+        'Traffic Data' : mapToggle,
         'Close Traffic' : mapToggle,
         'Close Traffic Map' : mapToggle,
+        'Close Traffic Data' : mapToggle,
         'Traffic Map' : function() {
             mapToggle();
         },
@@ -118,8 +107,8 @@ function sleep(milliseconds) {
   for (var i = 0; i < 1e7; i++) {
     if ((new Date().getTime() - start) > milliseconds){
       break;
-    } 
-    }
+  } 
+}
 }
 
 var alarmIsSet = false;
@@ -149,6 +138,10 @@ function setAlarm(time) {
 
     // No minutes included (ex. '11 o'clock' or '11 pm')
     if (timeArray[1] == null) {
+        if (/o'clock/.exec(timeArray[1])) {
+            alert("Contains 'o'clock'");
+        }
+
         var hour = timeArray[0][0] + timeArray[0][1];
 
         // Special case: "12 o'clock"
@@ -168,9 +161,9 @@ function setAlarm(time) {
 
             // Concatenate the "0" before it if it's in the single digits
             if (hour < 10) {
-               hour = "0" + hour[0];
-            }
-        }
+             hour = "0" + hour[0];
+         }
+     }
 
         // Set values
         document.getElementById("hour").value = hour;
@@ -218,6 +211,28 @@ function setAlarm(time) {
     displayAlarm(time);
 }
 
+/***************************************************
+* Cancel/Stop the alarm that is currently set.
+****************************************************/
+function cancelAlarm() {
+    console.log("Stopping Alarm");
+    document.getElementById("resetbutton").click();
+    displayAlarm("No alarms set");
+
+    if (alarmIsSet) 
+    {
+        alarmIsSet = false;
+        responsiveVoice.speak("Alright, I have cancelled your alarm");
+    }
+    else
+    {
+        responsiveVoice.speak("You did not have an alarm set");
+    }
+}
+
+/***************************************************
+* Handles whether or not the alarm is displayed
+***************************************************/
 function displayAlarm(time) {
     var alarmDisp = document.getElementById("alarmDisplay");
 
@@ -233,24 +248,28 @@ function displayAlarm(time) {
     }
 }
 
+// The map starts off not being displayed
 var mapOn = false;
 
+/***************************************************
+* Turns the map iFrame display on or off
+****************************************************/
 function mapToggle() {
   var trafficMap = document.getElementById("trafficMap");
 
   if (mapOn) {
-        console.log("Map was visible");
-        trafficMap.style.display = "none";
-        mapOn = false;
-      }
-      else {
-        console.log("Map was not visible");
-        trafficMap.style.display = "";
-        // initMap();
+    console.log("Map was visible");
+    trafficMap.style.display = "none";
 
-        // Reload the map
-        trafficMap.src = trafficMap.src;
+    mapOn = false;
+  }
+  else {
+    console.log("Map was not visible");
+    trafficMap.style.display = "";
 
-        mapOn = true;
-      }
+    // Reload the map
+    trafficMap.src = trafficMap.src;
+
+    mapOn = true;
+  }
 }
