@@ -118,7 +118,6 @@ var alarmIsSet = false;
 * voice command given.
 *****************************************************/
 function setAlarm(time) {
-    //alert("Time: " + time.split(":"));
     console.log("Setting an alarm for: " + time);
     var timeWithoutAmPm = time;
 
@@ -128,9 +127,7 @@ function setAlarm(time) {
         timeWithoutAmPm = timeWithoutAmPm.replace('.', '');
     }
 
-    // Tell the user that the alarm has been set
-    responsiveVoice.speak("Ok, I have set an alarm for " + timeWithoutAmPm);
-
+    
     var timeArray = time.split(":");
     //alert(timeArray[0]);
     //alert(timeArray[1]);
@@ -138,11 +135,14 @@ function setAlarm(time) {
 
     // No minutes included (ex. '11 o'clock' or '11 pm')
     if (timeArray[1] == null) {
-        if (/o'clock/.exec(timeArray[1])) {
-            alert("Contains 'o'clock'");
-        }
 
         var hour = timeArray[0][0] + timeArray[0][1];
+        var origHour = hour;
+
+        if (origHour[1] == " ") {
+            alert("Space found");
+            origHour = origHour[0];
+        }
 
         // Special case: "12 o'clock"
         if (hour == "12") {
@@ -161,20 +161,32 @@ function setAlarm(time) {
 
             // Concatenate the "0" before it if it's in the single digits
             if (hour < 10) {
-             hour = "0" + hour[0];
-         }
-     }
+               hour = "0" + hour[0];
+           }
+       }
 
         // Set values
         document.getElementById("hour").value = hour;
         document.getElementById("min").value = "00";
         document.getElementById("sec").value = "00";
 
+        var amOrPm = "PM";
+        if (hour < 12) {
+            amOrPm = "AM";
+        }
+        // Tell the user that the alarm has been set
+        responsiveVoice.speak("Ok, I have set an alarm for " + origHour + ":00 " + amOrPm);
+
         // Click to set the alarm
         document.getElementById("submitbutton").click();
+
+        // Indicate that the alarm has been set
+        alarmIsSet = true;
+        displayAlarm(origHour + ":00 " + amOrPm);
     }
     else {
         var hour = parseInt(timeArray[0]);
+        var origHour = hour;
 
         // Special case: "12 o'clock"
         if (hour == 12) {
@@ -197,18 +209,36 @@ function setAlarm(time) {
             }
         }
 
+        if (isInt(hour)) {
+            alert('Was not an Int');
+        }
+
         // Set values
         document.getElementById("hour").value = hour;
         document.getElementById("min").value = timeArray[1][0] + timeArray[1][1];
         document.getElementById("sec").value = "00";
 
+        var amOrPm = "PM";
+        if (hour < 12) {
+            amOrPm = "AM";
+        }
+
+        // Tell the user that the alarm has been set
+        responsiveVoice.speak("Ok, I have set an alarm for " + origHour + ":" + timeArray[1][0] + timeArray[1][1] + " " + amOrPm);
+
         // Click to set the alarm
         document.getElementById("submitbutton").click();
-    }
 
-    // Indicate that the alarm has been set
-    alarmIsSet = true;
-    displayAlarm(time);
+        // Indicate that the alarm has been set
+        alarmIsSet = true;
+        displayAlarm(origHour + ":" + timeArray[1][0] + timeArray[1][1] + " " + amOrPm);
+    }
+}
+
+function isInt(value) {
+  return !isNaN(value) && 
+         parseInt(Number(value)) == value && 
+         !isNaN(parseInt(value, 10));
 }
 
 /***************************************************
@@ -262,8 +292,8 @@ function mapToggle() {
     trafficMap.style.display = "none";
 
     mapOn = false;
-  }
-  else {
+}
+else {
     console.log("Map was not visible");
     trafficMap.style.display = "";
 
@@ -271,5 +301,5 @@ function mapToggle() {
     trafficMap.src = trafficMap.src;
 
     mapOn = true;
-  }
+}
 }
