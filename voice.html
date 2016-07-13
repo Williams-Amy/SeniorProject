@@ -65,12 +65,15 @@
         <button type="button" class="btn btn-info btn-lg" id="modalTrigger" data-toggle="modal" style="display:none" data-target="#Modal" >Open Modal</button>
         <!-- Alarm Modal Trigger Button -->
         <button type="button" class="btn btn-info btn-lg" style="display:none" id="alarmTrigger" data-toggle="modal" data-target="#alarmModal">Open Modal</button>
-        <!-- Notes -->
-        <div id="notes"></div>
+        
         <!-- Google Calendar -->
-        <!-- <iframe frameborder="0" scrolling="no" width="400" height="250" src="quickstart.html"></iframe> -->
-        <object type="text/html" data="calendar.html"></object>
+        <iframe frameborder="0" scrolling="no" width="300" height="300" src="calendar.html"></iframe>
+        <!-- <object id="googleCalendar" type="text/html" data="calendar.html"></object> -->
 
+        <!-- Notes -->
+        <div id="noteWrapper">
+          <div id="notes"></div>
+        </div>
       </div>
 
       <!-- Right hand items -->
@@ -139,7 +142,7 @@
     </div>
   </div>
   <!-- Alarm Clock (Not displayed to user) -->
-  <div style="color:black;background-color:#222;display: visible">
+  <div style="color:black;background-color:#222;display: none">
     <form action="" method="">
       <div id="jsalarmclock">
         <div>

@@ -2,16 +2,23 @@ body {
   font-family: 'Raleway';
   font-family: "Open Sans Condensed";
   font-family: "Dosis";
-  background-color: #555;
   background-color: #111;
-  color: white;
-}
-.modal-content {
-  border: 5;
-  border-color: white;
   background-color: #000;
   color: white;
 }
+.modal-content {
+  font-size: 150%;
+  border: 5;
+  border-color: white;
+  background-color: #000;
+  background-color: #222;
+  color: white;
+}
+
+.modal-content h3 {
+  font-weight: bold;
+}
+
 body.modal-open .visibleItems{
   -webkit-filter: blur(4px);
   -moz-filter: blur(4px);
@@ -43,15 +50,35 @@ body.modal-open .visibleItems{
   margin-right: 5px;
 }
 
+#googleCalendar {
+  height: 280px;
+  overflow: hidden;
+}
+
+#noteWrapper {
+  width: 500px;
+}
+
 #notes {
   font-family: 'Raleway';
-  width: 250px;
+  width: 1000px;
+  display: inline-block;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
 }
 .note {
   border-style: solid;
-  border-width: 1px;
+  border-width: 2px;
   border-color: white;
   border-radius: 3px;
+
+  margin: 2px;
+  width: 220px;
+  float: left;
+  display: inline-block;
+  vertical-align: top;
 
   padding-left: 5px;
   padding-right: 5px;
