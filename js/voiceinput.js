@@ -62,6 +62,18 @@ if (annyang) {
             text = text.toUpperCase();
             addNote(text);
         },
+        'add a note that says *text' : function(text) {
+            console.log("Create a note with text: " + text);
+            responsiveVoice.speak("Note created");
+            text = text.toUpperCase();
+            addNote(text);
+        },
+        'add a note saying *text' : function(text) {
+            console.log("Create a note with text: " + text);
+            responsiveVoice.speak("Note created");
+            text = text.toUpperCase();
+            addNote(text);
+        },
         'delete note *number' : function(number) {
             console.log("Deleting note " + number);
             responsiveVoice.speak("Note " + number + " deleted");
@@ -72,18 +84,12 @@ if (annyang) {
             responsiveVoice.speak("Note " + number + " deleted");
             deleteNote(number);
         },
-        'Traffic' : mapToggle,
-        'Traffic Map' : mapToggle,
-        'Traffic Data' : mapToggle,
+        '(Show me) Traffic' : mapToggle,
+        '(Show me the) Traffic Map' : mapToggle,
+        '(Show me) Traffic Data' : mapToggle,
         'Close Traffic' : mapToggle,
-        'Close Traffic Map' : mapToggle,
+        'Close (the) Traffic Map' : mapToggle,
         'Close Traffic Data' : mapToggle,
-        'Traffic Map' : function() {
-            mapToggle();
-        },
-        'Close Traffic Map' : function() {
-            mapToggle();
-        },
         'set a timer for *minminutes' : setTimer,
         'set a timer for *min and *sec seconds' : setTimer
     };
@@ -140,7 +146,6 @@ function setAlarm(time) {
         var origHour = hour;
 
         if (origHour[1] == " ") {
-            alert("Space found");
             origHour = origHour[0];
         }
 
@@ -209,9 +214,9 @@ function setAlarm(time) {
             }
         }
 
-        if (isInt(hour)) {
-            alert('Was not an Int');
-        }
+        // if (isInt(hour)) {
+        //     alert('Was not an Int');
+        // }
 
         // Set values
         document.getElementById("hour").value = hour;

@@ -23,6 +23,8 @@
         loadCalendarApi();
       }, 600000);
 
+      // How may events to display - 1.
+      const maxItems = 3;
 
       // Client ID: https://console.developers.google.com
       var CLIENT_ID = '5288324529-s53lbh3kh6u2vvrb2do8riiv65gfg6g6.apps.googleusercontent.com';
@@ -107,12 +109,16 @@
         request.execute(function(resp) 
         {
           var events = resp.items;
-          //appendPre('Upcoming events:');
 
           if (events.length > 0) 
           {
             for (i = 0; i < events.length; i++) 
             {
+              // Only display 4 items
+              if (i > maxItems) {
+                break;
+              }
+
               var event = events[i];
               var when = event.start.dateTime;
               if (!when) 
@@ -170,6 +176,11 @@
               if (parseInt(mins) == 0)
               {
                 mins = "00";
+              } 
+              else if (parseInt(mins) < 10) 
+              {
+                // Format "1:3" to "1:30"
+                mins = mins + "0";
               }
 
               var ampm;
